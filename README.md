@@ -2,7 +2,7 @@
 
 Professional portfolio website: a procurement and operations professional who finds the bottleneck in a business process and builds a practical AI-assisted tool to remove it.
 
-**Live site:** https://micha-code15.github.io/Professional-portfolio-AI-in-Action/
+**Live site:** https://micha-code15.github.io/
 
 ## What's here
 | Page | What it is |
