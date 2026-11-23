@@ -8,7 +8,7 @@ Professional portfolio website: a procurement and operations professional who fi
 | Page | What it is |
 |---|---|
 | `index.html` | Home page: selected work, live demos, videos, approach |
-| `project-breakdowns.html` | Full case studies, including stamp-and-sign, configurator and event-platform demos |
+| `project-breakdowns.html` | Full case studies, including stamp-and-sign and configurator demos |
 | `product-search.html` | Working demo: plain-language product search with weighted match scoring |
 | `crm-demo.html` | Working demo: key account workspace (today view, accounts, pipeline, quotes) |
 | `3d-demo.html` | Working demo: interactive 3D product viewer with parts list and document cross-check |

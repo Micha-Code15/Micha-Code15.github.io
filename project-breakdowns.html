@@ -210,7 +210,7 @@ button.pri:hover{filter:brightness(1.08)}
 </header>
 
 <nav class="scroll" aria-label="Sections">
-  <a href="#approach">Approach</a><a href="#capabilities">Capabilities</a><a href="#projects">Projects</a><a href="#register">Register Search</a><a href="#crm">CRM</a><a href="#visualiser">3D Visualiser</a><a href="#filing">Quote Filing</a><a href="#briefing">Action Briefing</a><a href="#stamp">Stamp &amp; Sign</a><a href="#configurator">Configurator</a><a href="#events">Events</a><a href="#technology">Technology</a><a href="#transfer">Transferability</a><a href="#future">Next</a><a href="#contact">Contact</a>
+  <a href="#approach">Approach</a><a href="#capabilities">Capabilities</a><a href="#projects">Projects</a><a href="#register">Register Search</a><a href="#crm">CRM</a><a href="#visualiser">3D Visualiser</a><a href="#filing">Quote Filing</a><a href="#briefing">Action Briefing</a><a href="#stamp">Stamp &amp; Sign</a><a href="#configurator">Configurator</a><a href="#technology">Technology</a><a href="#transfer">Transferability</a><a href="#future">Next</a><a href="#contact">Contact</a>
 </nav>
 
 <section class="band" id="approach">
@@ -237,7 +237,6 @@ button.pri:hover{filter:brightness(1.08)}
       <div class="cap"><b>Document verification</b><span>Cross-checking technical documents and recalculating values to find mismatches.</span></div>
       <div class="cap"><b>Reconciliations</b><span>Register against folder, and parts lists against picking notes.</span></div>
       <div class="cap"><b>AI workflows</b><span>Repeatable briefings that triage email into clear, owned actions.</span></div>
-      <div class="cap"><b>Secure, real-time apps</b><span>Encrypted personal content and live multi-user voting with host-only views.</span></div>
       <div class="cap"><b>Document automation</b><span>Batch stamping and signing of PDFs on the user's own device.</span></div>
       <div class="cap"><b>Technical documentation</b><span>Quotation templates, installation guidelines and client background forms.</span></div>
       <div class="cap"><b>Spreadsheet tools</b><span>Forecasting models, drill-down status reports, macros, VBA and dashboards, built over 15 years.</span></div>
@@ -260,7 +259,6 @@ button.pri:hover{filter:brightness(1.08)}
           <tr><td data-l="Project"><a href="#briefing">AI Inbox Action Briefing</a></td><td data-l="Category">AI workflow</td><td data-l="Status"><span class="stamp">In daily personal use</span></td><td data-l="Built with">Claude, Gmail</td></tr>
           <tr><td data-l="Project"><a href="#stamp">Batch PDF Stamp &amp; e-Signature</a></td><td data-l="Category">Document automation</td><td data-l="Status"><span class="stamp">Working</span></td><td data-l="Built with">Claude, pdf-lib, JSZip</td></tr>
           <tr><td data-l="Project"><a href="#configurator">3D Product Configurator</a></td><td data-l="Category">Product knowledge, verification</td><td data-l="Status"><span class="stamp">Working</span></td><td data-l="Built with">Claude, three.js</td></tr>
-          <tr><td data-l="Project"><a href="#events">Interactive Event Platform</a></td><td data-l="Category">Own venture, real-time apps</td><td data-l="Status"><span class="stamp p">Built and tested</span></td><td data-l="Built with">Claude, Web Crypto, live database</td></tr>
         </tbody>
       </table>
     </div>
@@ -570,55 +568,6 @@ button.pri:hover{filter:brightness(1.08)}
   </div>
 </section>
 
-<section class="band case" id="events">
-  <div class="in">
-    <header><h2>Interactive Event Platform</h2><span class="stamp p">Built and tested</span></header>
-    <p class="sub">Beyond business: web apps for hosted murder-mystery evenings, run under my own events brand (shown here as Example Mystery Evenings).</p>
-    <div class="two">
-      <div>
-        <p><b>The challenge.</b> An interactive evening for 15 guests means private character briefs, clues released at the right moment, and votes counted fast at the finale. Paper packs get lost or read by the wrong person.</p>
-        <p><b>What I built.</b> I wrote the storylines and designed the game flow; AI tools built the apps. Built and tested with groups of people, ahead of a public launch.</p>
-        <ul class="feat">
-          <li>Secret dossiers encrypted (AES-GCM), each opened only with the guest's own code</li>
-          <li>Evidence released in stages with codes the host announces</li>
-          <li>Guests vote from their own phones; only the host sees the live tally</li>
-          <li>Paper-slip entry and WhatsApp or email backup if the connection fails</li>
-          <li>Host guides, story bibles and a printable cast sheet for each storyline</li>
-        </ul>
-        <dl class="meta"><dt>Why it matters</dt><dd>Secure design, real-time multi-user apps and guest-facing polish under pressure. These are the same skills my business tools rely on.</dd><dt>Also fits</dt><dd>Training simulations, personalised secure briefings, live polling at supplier days and conferences.</dd></dl>
-      </div>
-      <div>
-        <div class="tool" role="region" aria-label="Live demo of an encrypted dossier">
-          <div class="mockh">Open your dossier <small>Live demo · real encryption</small></div>
-          <div class="opts"><label for="dc" style="flex:1">Your six-character code <input id="dc" maxlength="6" autocomplete="off" class="code" placeholder="e.g. FINCH7"></label><button type="button" id="dgo" class="pri">Open</button></div>
-          <div class="sum" id="dout" aria-live="polite">Try the code <b>FINCH7</b>. Any other code fails, because the text can only be decrypted with the right one.</div>
-        </div>
-        <div class="tool" role="region" aria-label="Live demo of the ballot and host tally" style="margin-top:16px">
-          <div class="mockh">Murder on the Midnight Frequency · ballot <small>Live demo</small></div>
-          <div class="tabs" role="tablist"><button type="button" role="tab" id="tg" aria-selected="true">Guest phone</button><button type="button" role="tab" id="th" aria-selected="false">Host tally</button></div>
-          <div id="pg" class="pane">
-            <div class="fields one">
-              <label for="bv">Who are you?<select id="bv"></select></label>
-              <label for="bs">Who killed Augustus Harrow?<select id="bs"></select></label>
-              <label for="bm">How?<select id="bm"></select></label>
-              <label for="bw">Why?<select id="bw"></select></label>
-            </div>
-            <div class="opts"><button type="button" id="bgo" class="pri">Lock in my vote</button></div>
-            <div class="sum" id="bmsg" aria-live="polite">Pick your name, a suspect, a method and a motive.</div>
-          </div>
-          <div id="ph" class="pane" hidden>
-            <div class="sum" id="bstat"></div>
-            <div id="bars"></div>
-            <div class="opts"><button type="button" id="bsim">Simulate 10 guests</button><button type="button" id="bclr">Clear votes</button></div>
-            <div class="sum" id="bmiss"></div>
-          </div>
-        </div>
-        <p class="syn">Demo: votes stay on this page. In the real platform each guest votes from their own phone into a shared live database. The cast and options are from my original storyline; the sample dossier was written for this demo.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="band alt" id="technology">
   <div class="in two">
     <div>
@@ -634,7 +583,6 @@ button.pri:hover{filter:brightness(1.08)}
           <tr><td data-l="Tool">ChatGPT and Gemini</td><td data-l="How I use it">Additional AI assistants used during development</td></tr>
           <tr><td data-l="Tool">Gmail and Google Drive connectors</td><td data-l="How I use it">Email triage, document lookups and client folders</td></tr>
           <tr><td data-l="Tool">pdf-lib and JSZip</td><td data-l="How I use it">Stamping, signing and zipping PDFs in the browser</td></tr>
-          <tr><td data-l="Tool">Web Crypto and a live shared database</td><td data-l="How I use it">Encrypted dossiers and real-time voting in the event apps</td></tr>
           <tr><td data-l="Tool">HTML, JavaScript, three.js</td><td data-l="How I use it">What the tools run on, written by AI to my specification</td></tr>
           <tr><td data-l="Tool">Excel</td><td data-l="How I use it">Registers and imports; earlier, forecasting, drill-down reports, macros and VBA</td></tr>
         </tbody>
@@ -656,7 +604,6 @@ button.pri:hover{filter:brightness(1.08)}
           <tr><td data-l="Pattern"><b>Reconciliation</b></td><td data-l="Procurement">Invoices against POs and GRNs</td><td data-l="Operations">Stock against picking notes</td><td data-l="Other">Audit document trails</td></tr>
           <tr><td data-l="Pattern"><b>Action briefing</b></td><td data-l="Procurement">Chasing suppliers and approvals</td><td data-l="Operations">Daily coordination</td><td data-l="Other">Project management</td></tr>
           <tr><td data-l="Pattern"><b>Batch document stamping</b></td><td data-l="Procurement">Approved stamps on supplier documents</td><td data-l="Operations">Receiving stamps on delivery notes</td><td data-l="Other">Audit evidence packs</td></tr>
-          <tr><td data-l="Pattern"><b>Secure briefs and live polling</b></td><td data-l="Procurement">Supplier day voting</td><td data-l="Operations">Training simulations</td><td data-l="Other">Conferences and workshops</td></tr>
         </tbody>
       </table>
     </div>
@@ -668,7 +615,6 @@ button.pri:hover{filter:brightness(1.08)}
     <h2>What comes next</h2>
     <ul class="feat" style="margin-top:16px">
       <li>The action briefing merged into the CRM, so actions and accounts live in one place</li>
-      <li>Public launch of the event platform under its registered brand</li>
       <li>Personal projects, including websites and apps, added as further case studies</li>
     </ul>
   </div>
@@ -799,45 +745,7 @@ $('srun').onclick=()=>runBatch([['DEMO-01_A3.pdf',()=>sample('01',[1190.55,841.8
 $('sfile').onchange=e=>{const fs=[...e.target.files];if(!fs.length)return;runBatch(fs.map(f=>[f.name,async()=>PDFLib.PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true})]));e.target.value=''};
 preview();document.fonts&&document.fonts.ready.then(preview);
 
-/* ---------- Encrypted dossier ---------- */
-const ENC={"s":"X6t9QaQ41KmkybclYRLV7Q==","i":"VLt2tktI4FyGQCvl","c":"eB3ojjy7sxKeBI3WOlfu/jEHgwMrftt1S0+q6vrc83ufBLg/vWT0zCDpR+XHAWjd9y1e0IipdZ6pgFOxpdCMMBLVTYqpUv/2WUaMt74u+BmEvAV4Hq2SRSv8JEvibmt//Yif/wNQHBaF+53f4Om/3j7AkqLvRH/0fcYfCNzJtpF6IMO4zqgchYmqDDCyZ+uu0hTG7BrunlfrjtD9zcIR++Jdph3Ko/baO9aWXEiSlkjYDPE6a1QPiRZoe9MmMadD1I25uJFYBwsRgAjglS8x/nidEhqaYrPaVyR0RZTg/Pcyc91FCe5aybwWWbwbxrCsBW3yjVAtYRsGjgUoAZx7iKjIKoZG3yiIRzOGHLgljmNL5OSqJOLszxbDgQjhEEoC7zPxxXU6trnYNQiLHLtibc1rmGinHCWMlrSSIFFoHKg88wxwBNdXEVwj6aL0pkx77NDtQ8XoidRRrmxZIrmjbucbl8JEwT0cq1fJ0JIzLTRXiggz+ga91+gFCwhb+eiaYjYg9kzUNMRlCB4ytA=="};
-const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-$('dgo').onclick=async()=>{const out=$('dout'),code=$('dc').value.trim().toUpperCase();
- if(code.length!==6){out.textContent='Codes have six characters.';return}
- if(!(window.crypto&&crypto.subtle)){out.textContent='This page needs a secure (https) connection to open a dossier.';return}
- try{const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']);
-  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(ENC.s),iterations:150000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-  const d=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(ENC.i)},key,b64(ENC.c))));
-  out.innerHTML='';const box=document.createElement('div');box.className='dos';
-  for(const [tag,txt] of [['b',d.who],['p','Your secret: '+d.secret],['p','Your goal: '+d.goal],['p',d.note]]){const el=document.createElement(tag);el.textContent=txt;box.appendChild(el)}
-  box.lastChild.style.cssText='color:var(--mute);font-size:13px';out.appendChild(box);}
- catch(e){out.textContent='That code does not open this dossier. The text stays encrypted.'}};
-$('dc').addEventListener('keydown',e=>{if(e.key==='Enter')$('dgo').click()});
 
-/* ---------- Ballot and host tally ---------- */
-const CAST=['Augustus Harrow','June Lovell','Theo Banks','Peg Doyle','Victor Sable','Cornelia Harrow','Sergeant Frank Malloy','Roz Pike','Professor Emil Strand','Alderman Wallace Pruitt','Lillian Quill','Hazel Fairweather','Billy Finch','Dr Ambrose Kettle','Countess Vera Orlov'];
-const GUESTS=CAST.slice(1),SUS=CAST.slice(1);
-const METH=['Slipped out unseen while everyone watched the singer','Used a gramophone record to fake a live performance','Used the switchboard to fake a telephone alibi','Hid in the transmitter room before the speech','Bribed the police to look the other way'];
-const MOT=['To inherit the station','To avoid paying a debt','To hide a stolen patent','To stop the truth about stolen songs coming out','To keep a spy from being named','To bury a charity scandal'];
-const fill=(id,arr,ph)=>{$(id).replaceChildren(new Option(ph,''),...arr.map(v=>new Option(v,v)))};
-fill('bv',GUESTS,'Choose your character');fill('bs',SUS,'Choose a suspect');fill('bm',METH,'Choose the method');fill('bw',MOT,'Choose the motive');
-let votes={};
-function tally(){const n=Object.keys(votes).length,c={};SUS.forEach(s=>c[s]=0);Object.values(votes).forEach(v=>c[v.s]++);
- const rows=Object.entries(c).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])),top=rows[0]?rows[0][1]:0;
- $('bstat').innerHTML='<b>'+n+'</b> of '+GUESTS.length+' guests have voted.'+(top?' Leading: '+rows.filter(r=>r[1]===top).map(r=>r[0]).join(' and ')+(rows.filter(r=>r[1]===top).length>1?' (tie)':''):'');
- $('bars').replaceChildren(...rows.map(([k,v])=>{const d=document.createElement('div');d.className='brow'+(v===top?' lead':'');
-  d.innerHTML='<span></span><div class="t"><i></i></div><b></b>';d.children[0].textContent=k;d.querySelector('i').style.width=(v/top*100)+'%';d.children[2].textContent=v;return d}));
- const miss=GUESTS.filter(g=>!votes[g]);$('bmiss').textContent=miss.length?'Still to vote: '+miss.join(', '):'Everyone has voted.';}
-$('bgo').onclick=()=>{const v=$('bv').value,s=$('bs').value,m=$('bm').value,w=$('bw').value,msg=$('bmsg');
- if(!v||!s||!m||!w){msg.textContent='Choose all four before locking in.';return}
- if(v===s){msg.textContent='You cannot accuse yourself. Choose another suspect.';return}
- votes[v]={s,m,w};msg.textContent='Vote locked in for '+v+'. Open the Host tally tab to see it arrive.';['bv','bs','bm','bw'].forEach(id=>$(id).value='');tally()};
-$('bsim').onclick=()=>{const free=GUESTS.filter(g=>!votes[g]);for(let i=0;i<10&&free.length;i++){const g=free.splice(Math.floor(Math.random()*free.length),1)[0];
- const pool=SUS.filter(x=>x!==g),s=pool[Math.floor(Math.random()*pool.length)];
- votes[g]={s,m:METH[i%METH.length],w:MOT[i%MOT.length]}}tally()};
-$('bclr').onclick=()=>{votes={};tally()};
-const tab=g=>{$('tg').setAttribute('aria-selected',g);$('th').setAttribute('aria-selected',!g);$('pg').hidden=!g;$('ph').hidden=g};
-$('tg').onclick=()=>tab(true);$('th').onclick=()=>tab(false);tally();
 }
 </script>
 
