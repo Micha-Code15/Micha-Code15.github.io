@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D Frame Viewer Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: the model is the exhibit (left, large); the parts list, checks and selected-part details sit in a side panel. Phone: model on top, panel below. */
+:root{
+ --bg:#ffffff;--sur:#f1f4f8;--ink:#0f1b2d;--mute:#4d5b6e;--line:#d7dee8;--stage:#e9eef5;
+ --navy:#0f2a4a;--slate:#4b6a92;--acc:#1f5eff;--accbg:#e6eeff;
+ --red:#b4232f;--redbg:#fbe7e9;--amb:#9a5b00;--ambbg:#fdf0dc;--grn:#1d7a46;--grnbg:#e3f4ea;
+ --font:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0b1424;--sur:#111d31;--ink:#e6edf7;--mute:#9fb0c6;--line:#243350;--stage:#0f1a2c;
+ --navy:#0a1d36;--slate:#8fa8c8;--acc:#7aa2ff;--accbg:#18284a;
+ --red:#ff8f99;--redbg:#3a1a20;--amb:#f2b766;--ambbg:#3a2a12;--grn:#7fd3a0;--grnbg:#14301f;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#0b1424;--sur:#111d31;--ink:#e6edf7;--mute:#9fb0c6;--line:#243350;--stage:#0f1a2c;
+ --navy:#0a1d36;--slate:#8fa8c8;--acc:#7aa2ff;--accbg:#18284a;
+ --red:#ff8f99;--redbg:#3a1a20;--amb:#f2b766;--ambbg:#3a2a12;--grn:#7fd3a0;--grnbg:#14301f;color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font)}
+[hidden]{display:none!important}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--navy);color:#fff}
+header.top .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;justify-content:space-between}
+header.top b{font-size:18px;font-weight:800}
+header.top small{color:#c9d6e8;font-size:13px}
+.banner{background:var(--accbg);font-size:13px}
+.banner .wrap{padding-block:8px;display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+a{color:var(--acc)}
+main .wrap{padding-block:16px 40px}
+h2,h3{margin:0;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:15px}
+.lay{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:940px){.lay{grid-template-columns:1fr}}
+.stage{position:relative;background:var(--stage);border-radius:10px;overflow:hidden;aspect-ratio:4/3;max-width:100%;touch-action:none}
+.stage canvas{display:block;width:100%;height:100%}
+.hint{position:absolute;left:10px;bottom:10px;right:10px;font-size:12px;color:var(--mute);pointer-events:none}
+.warn{position:absolute;left:10px;top:10px;right:10px;font-size:12px;font-weight:700;color:var(--red);background:var(--bg);border-radius:6px;padding:6px 10px;box-shadow:0 1px 4px rgba(15,27,45,.15)}
+.err{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:var(--mute)}
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.ctrls .grp{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.ctrls .lab{font-size:12px;color:var(--mute);font-weight:700;margin-right:2px}
+button{font:600 13px var(--font);border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:6px 10px;min-height:38px;cursor:pointer}
+button:hover{border-color:var(--slate)}
+button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--mute);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.panel{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;border:0;border-radius:0;border-bottom:3px solid transparent;background:transparent;min-height:44px;font-size:14px}
+.tabs button[aria-selected="true"]{border-bottom-color:var(--acc);color:var(--acc);background:transparent}
+.pane{padding:12px 14px;display:grid;gap:12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0}
+.kv dt{color:var(--mute)}.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;color:var(--mute);font-weight:700;padding:6px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--sur)}tr.sel td{background:var(--accbg)}
+.src{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:0}
+.src.d{background:var(--grn)}.src.c{background:var(--acc)}.src.i{background:var(--amb)}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.chk li{border:1px solid var(--line);border-left-width:4px;border-radius:6px;padding:8px 10px;font-size:14px}
+.chk li.bad{border-left-color:var(--red)}.chk li.ok{border-left-color:var(--grn)}.chk li.q{border-left-color:var(--amb)}
+.chk b{display:block}.chk small{color:var(--mute);font-size:13px}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.pill.bad{background:var(--redbg);color:var(--red)}.pill.ok{background:var(--grnbg);color:var(--grn)}.pill.q{background:var(--ambbg);color:var(--amb)}
+.note{font-size:12px;color:var(--mute);margin:0}
+.foot{font-size:12px;color:var(--mute);margin-top:18px;max-width:80ch}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><b>3D Frame Viewer · DEMO-RF-200</b><small>Example Manufacturing Group · two-bay storage frame</small></div></header>
+<div class="banner"><div class="wrap"><span>Working demo with an invented product, invented drawings and invented design checks. Visual aid only: not for fabrication, approval or structural checking.</span><a href="index.html">Back to portfolio</a></div></div>
+<main><div class="wrap">
+ <div class="lay">
+  <div>
+   <div class="stage" id="stage"><div class="warn" id="warn">Invented design check: bottom-panel diagonals at 104% of their limit (shown red).</div><div class="hint">Drag to turn · scroll or pinch to zoom · right-drag or two fingers to pan · tap a part</div></div>
+   <div class="ctrls">
+    <div class="grp" role="group" aria-label="Colour members by"><span class="lab">Colour</span><button type="button" data-col="util" aria-pressed="true">Utilisation</button><button type="button" data-col="size" aria-pressed="false">Member size</button><button type="button" data-col="plain" aria-pressed="false">Plain</button></div>
+    <div class="grp" role="group" aria-label="Views"><span class="lab">View</span><button type="button" data-view="over">Overview</button><button type="button" data-view="front">Front</button><button type="button" data-view="side">Side</button><button type="button" data-view="top">Top</button><button type="button" data-view="base">Base</button></div>
+    <div class="grp"><button type="button" id="tFloor" aria-pressed="true">Floor and base plates</button><button type="button" id="tLoad" aria-pressed="true">Load levels</button><button type="button" id="tSpin" aria-pressed="false">Slow rotate</button></div>
+   </div>
+   <div class="legend" id="legend"></div>
+  </div>
+  <div class="panel">
+   <div class="tabs" role="tablist"><button role="tab" type="button" data-tab="parts" aria-selected="true">Parts list</button><button role="tab" type="button" data-tab="checks" aria-selected="false">Cross-check</button><button role="tab" type="button" data-tab="sel" aria-selected="false">Selected part</button></div>
+   <div class="pane" id="p-parts">
+    <dl class="kv"><dt>Height</dt><dd>3.60 m upright frames <span class="src d" title="From drawings"></span></dd><dt>Bays</dt><dd>2 × 2.70 m beam length <span class="src d"></span></dd><dt>Depth</dt><dd>1.00 m frame depth <span class="src d"></span></dd><dt>Load</dt><dd>1 000 kg per beam pair, 3 levels <span class="src d"></span></dd><dt>Steel</dt><dd>Cold-formed, galvanised <span class="src i" title="Inferred, confirm"></span></dd></dl>
+    <div class="scroll"><table><thead><tr><th>Part</th><th>Size</th><th class="num">Qty</th><th class="num">Mass</th></tr></thead><tbody id="ptab"></tbody></table></div>
+    <p class="note"><span class="src d"></span>From the drawings &nbsp; <span class="src c"></span>Calculated from the drawings &nbsp; <span class="src i"></span>Typical or inferred, confirm. Tap a row to highlight that part in the model.</p>
+   </div>
+   <div class="pane" id="p-checks" hidden>
+    <p class="note">Masses recalculated from the member schedule and compared with the supplier's technical report, plus gaps between documents. All findings here are invented for the demo.</p>
+    <ul class="chk" id="chk"></ul>
+   </div>
+   <div class="pane" id="p-sel" hidden><div id="seld"><p class="note">Tap a part in the model or a row in the parts list.</p></div></div>
+  </div>
+ </div>
+ <p class="foot">Demo of a 3D viewer method I use to learn technical products and cross-check their documents, rebuilt here with an invented product. In the original, each model is built from real drawings and technical reports, and the findings are confirmed by a specialist review.</p>
+</div></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+/* ---------- invented product data ---------- */
+const H=3.6,D=1.0,BAY=2.7,LEVELS=[1.2,2.4,3.4];
+const GROUPS={
+ upright:{name:'Upright',size:'80×60×2.0 C-profile',kgm:3.90,src:'d',util:.86,col:'#33507a'},
+ horiz:{name:'Frame horizontal',size:'40×30×1.5 lipped C',kgm:1.30,src:'d',util:.41,col:'#6b88b0'},
+ diag:{name:'Frame diagonal',size:'40×30×1.5 lipped C',kgm:1.30,src:'d',util:.74,col:'#8aa4c8'},
+ beam:{name:'Beam',size:'100×50×1.6 box',kgm:4.20,src:'d',util:.92,col:'#1f5eff'},
+ plate:{name:'Base plate',size:'150×120×5 plate',kg:0.71,src:'c',util:null,col:'#5b6b80'},
+ anchor:{name:'Floor anchor',size:'M10 × 90 sleeve anchor',kg:0.09,src:'i',util:null,col:'#9a5b00'}};
+/* per-member utilisation (invented): bottom diagonals fail, upper beams lighter */
+const REPORT={upright:84.2,horiz:15.4,diag:17.6,beam:118.0,plate:4.3,anchor:1.1};
+const members=[];
+function add(g,a,b,extra){members.push(Object.assign({g,a,b,len:Math.hypot(b[0]-a[0],b[1]-a[1],b[2]-a[2])},extra||{}))}
+const xs=[0,BAY,2*BAY];
+xs.forEach((x,fi)=>{
+ add('upright',[x,0,0],[x,H,0],{label:'Upright, frame '+(fi+1)+' front'});add('upright',[x,0,D],[x,H,D],{label:'Upright, frame '+(fi+1)+' back'});
+ const hy=[0.15,1.35,2.55,3.45];hy.forEach((y,i)=>add('horiz',[x,y,0],[x,y,D],{label:'Horizontal '+(i+1)+', frame '+(fi+1)}));
+ for(let i=0;i<3;i++){const y0=hy[i],y1=hy[i+1],flip=i%2;add('diag',[x,y0,flip?D:0],[x,y1,flip?0:D],{label:'Diagonal '+(i+1)+', frame '+(fi+1),util:i===0?1.04:i===1?.71:.48})}
+});
+for(let bi=0;bi<2;bi++)LEVELS.forEach((y,li)=>{[0,D].forEach((z,s)=>add('beam',[xs[bi],y,z],[xs[bi+1],y,z],{label:'Beam, bay '+(bi+1)+' level '+(li+1)+(s?' back':' front'),util:[.92,.78,.55][li]}))});
+const plates=[],anchors=[];xs.forEach((x,fi)=>[0,D].forEach((z,s)=>{plates.push({x,z,label:'Base plate, frame '+(fi+1)+(s?' back':' front')});[-.04,.04].forEach(dx=>anchors.push({x:x+dx,z,label:'Anchor, frame '+(fi+1)+(s?' back':' front')}))}));
+/* parts schedule, recalculated */
+const sched=Object.keys(GROUPS).map(k=>{const G=GROUPS[k];let qty,len=null,mass;
+ if(k==='plate'){qty=plates.length;mass=qty*G.kg}else if(k==='anchor'){qty=anchors.length;mass=qty*G.kg}
+ else{const M=members.filter(m=>m.g===k);qty=M.length;len=M.reduce((s,m)=>s+m.len,0);mass=len*G.kgm}
+ return{k,qty,len,mass,report:REPORT[k]}});
+const total=sched.reduce((s,r)=>s+r.mass,0),repTotal=Object.values(REPORT).reduce((a,b)=>a+b,0);
+const f1=v=>v.toLocaleString('en-GB',{minimumFractionDigits:1,maximumFractionDigits:1});
+$('ptab').innerHTML=sched.map(r=>`<tr class="click" data-g="${r.k}" tabindex="0"><td><span class="src ${GROUPS[r.k].src}"></span>${GROUPS[r.k].name}</td><td>${GROUPS[r.k].size}</td><td class="num">${r.qty}</td><td class="num">${f1(r.mass)} kg</td></tr>`).join('')+
+ `<tr><td colspan="3"><b>Total, calculated</b></td><td class="num"><b>${f1(total)} kg</b></td></tr><tr><td colspan="3">Supplier report</td><td class="num">${f1(repTotal)} kg</td></tr>`;
+/* cross-check findings, computed from the numbers above where possible */
+const checks=sched.filter(r=>r.k!=='anchor').map(r=>{const d=r.mass-r.report,pct=Math.abs(d)/r.report;return pct<=.03
+ ?{c:'ok',t:GROUPS[r.k].name+': masses agree',s:'Calculated '+f1(r.mass)+' kg · report '+f1(r.report)+' kg'}
+ :{c:'bad',t:GROUPS[r.k].name+': mass mismatch',s:'Calculated '+f1(r.mass)+' kg · report '+f1(r.report)+' kg ('+(d>0?'+':'')+f1(d)+' kg). '+(r.k==='beam'?'The report figure matches a '+(r.report/GROUPS.beam.kgm/r.qty).toFixed(2)+' m beam; the drawings show '+BAY.toFixed(2)+' m. Confirm beam length before quoting.':'Check member lengths and section mass against the drawings.')}});
+checks.push({c:'bad',t:'Bottom-panel diagonals over their limit',s:'Invented design check shows 104% utilisation. Raise with the specialist team before release.'});
+checks.push({c:'q',t:'Anchor size not stated on the base drawing',s:'M10 sleeve anchors assumed from typical practice. Confirm with the supplier.'});
+checks.push({c:'q',t:'Beam safety locks not on the parts list',s:'The assembly drawing shows locks at each beam end (24 in total) but the parts list omits them.'});
+$('chk').innerHTML=checks.map(x=>`<li class="${x.c}"><span class="pill ${x.c}">${x.c==='ok'?'Match':x.c==='bad'?'Mismatch':'Confirm'}</span><b>${x.t}</b><small>${x.s}</small></li>`).join('');
+/* ---------- tabs ---------- */
+const tab=t=>{document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));['parts','checks','sel'].forEach(p=>$('p-'+p).hidden=p!==t)};
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+/* ---------- 3D ---------- */
+const stage=$('stage');
+if(!window.THREE||!THREE.OrbitControls){const e=document.createElement('div');e.className='err';e.textContent='The 3D library did not load. Check the connection and reload the page. The parts list and cross-check still work.';stage.appendChild(e);return}
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(2,devicePixelRatio));stage.prepend(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(40,4/3,.05,100);
+const ctr=new THREE.Vector3(BAY,H/2,D/2);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.target.copy(ctr);controls.enableDamping=true;controls.maxDistance=20;controls.minDistance=1;
+scene.add(new THREE.HemisphereLight(0xffffff,0x8899aa,.9));const dl=new THREE.DirectionalLight(0xffffff,.6);dl.position.set(4,8,6);scene.add(dl);
+const objs=[];const up=new THREE.Vector3(0,1,0);
+function bar(m){const G=GROUPS[m.g],th=m.g==='upright'?.07:m.g==='beam'?.08:.035,dp=m.g==='beam'?.045:th;
+ const geo=new THREE.BoxGeometry(th,m.len,dp),mat=new THREE.MeshLambertMaterial({color:G.col});const mesh=new THREE.Mesh(geo,mat);
+ const a=new THREE.Vector3(...m.a),b=new THREE.Vector3(...m.b);mesh.position.copy(a.clone().add(b).multiplyScalar(.5));
+ mesh.quaternion.setFromUnitVectors(up,b.clone().sub(a).normalize());mesh.userData=m;scene.add(mesh);objs.push(mesh)}
+members.forEach(bar);
+const baseGrp=new THREE.Group();scene.add(baseGrp);
+plates.forEach(p=>{const m=new THREE.Mesh(new THREE.BoxGeometry(.15,.01,.12),new THREE.MeshLambertMaterial({color:GROUPS.plate.col}));m.position.set(p.x,.005,p.z);m.userData={g:'plate',label:p.label};baseGrp.add(m);objs.push(m)});
+anchors.forEach(p=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.09,8),new THREE.MeshLambertMaterial({color:GROUPS.anchor.col}));m.position.set(p.x,-.035,p.z);m.userData={g:'anchor',label:p.label};baseGrp.add(m);objs.push(m)});
+const floor=new THREE.Mesh(new THREE.BoxGeometry(2*BAY+1.2,.04,D+1.2),new THREE.MeshLambertMaterial({color:0xb8c2cf,transparent:true,opacity:.45}));floor.position.set(BAY,-.021,D/2);baseGrp.add(floor);
+const loadGrp=new THREE.Group();scene.add(loadGrp);
+for(let bi=0;bi<2;bi++)LEVELS.forEach(y=>{const p=new THREE.Mesh(new THREE.BoxGeometry(BAY-.25,.5,D*.85),new THREE.MeshLambertMaterial({color:0xc9a76a,transparent:true,opacity:.16,depthWrite:false}));p.position.set(xs[bi]+BAY/2,y+.29,D/2);loadGrp.add(p)});
+/* colouring */
+let colMode='util',selG=null,selObj=null;
+const utilCol=u=>u==null?'#9aa6b5':u>1?'#c62f3c':u>=.85?'#d98a1c':u>=.6?'#4b8fd6':'#69b38a';
+function colorAll(){objs.forEach(o=>{const d=o.userData,G=GROUPS[d.g];const u=d.util!=null?d.util:G.util;
+ let c=colMode==='util'?utilCol(u):colMode==='size'?G.col:'#8a96a6';
+ const any=selObj||selG,isSel=selObj?o===selObj:selG&&d.g===selG;o.material.color.set(c);
+ /* selection fades everything else, so the colour code keeps its meaning */
+ if(o!==floor){o.material.transparent=!!any&&!isSel;o.material.opacity=any&&!isSel?.12:1;o.material.depthWrite=!(any&&!isSel)}});
+ const L=$('legend');L.innerHTML=colMode==='util'?[['#69b38a','under 60%'],['#4b8fd6','60–85%'],['#d98a1c','85–100%'],['#c62f3c','over 100%']].map(x=>`<span><i style="background:${x[0]}"></i>${x[1]}</span>`).join('')+'<span>Utilisation from the invented design check</span>'
+  :colMode==='size'?Object.values(GROUPS).map(G=>`<span><i style="background:${G.col}"></i>${G.name}</span>`).join(''):'';
+ $('warn').hidden=colMode!=='util'}
+document.querySelectorAll('[data-col]').forEach(b=>b.onclick=()=>{colMode=b.dataset.col;document.querySelectorAll('[data-col]').forEach(x=>x.setAttribute('aria-pressed',x===b));colorAll();draw()});
+/* selection */
+function showSel(d){const G=GROUPS[d.g],r=sched.find(x=>x.k===d.g),u=d.util!=null?d.util:G.util;
+ $('seld').innerHTML=`<h3>${d.label||G.name}</h3><dl class="kv" style="margin-top:8px"><dt>Part</dt><dd>${G.name}</dd><dt>Size</dt><dd>${G.size}</dd>${d.len?`<dt>Length</dt><dd>${d.len.toFixed(2)} m <span class="src c" title="Calculated"></span></dd><dt>Mass</dt><dd>${f1(d.len*G.kgm)} kg <span class="src c"></span></dd>`:`<dt>Mass</dt><dd>${f1(G.kg)} kg <span class="src ${G.src}"></span></dd>`}<dt>Utilisation</dt><dd>${u==null?'Not checked':`<span class="pill ${u>1?'bad':u>=.85?'q':'ok'}">${Math.round(u*100)}%</span>`}</dd><dt>Group total</dt><dd>${r.qty} pieces · ${f1(r.mass)} kg</dd><dt>Source</dt><dd><span class="src ${G.src}"></span>${G.src==='d'?'From the drawings':G.src==='c'?'Calculated from the drawings':'Typical or inferred, confirm'}</dd></dl>`}
+function selectGroup(k){selG=k;selObj=null;document.querySelectorAll('#ptab tr[data-g]').forEach(tr=>tr.classList.toggle('sel',tr.dataset.g===k));colorAll();draw()}
+document.querySelectorAll('#ptab tr[data-g]').forEach(tr=>{tr.onclick=()=>{selectGroup(tr.dataset.g)};tr.onkeydown=e=>{if(e.key==='Enter')tr.click()}});
+const ray=new THREE.Raycaster(),mv=new THREE.Vector2();let down=null;
+renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY]});
+renderer.domElement.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>6)return;const r=renderer.domElement.getBoundingClientRect();
+ mv.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mv,camera);const hit=ray.intersectObjects(objs.filter(o=>o.visible&&(o.parent===scene||baseGrp.visible)),false).find(h=>h.object.userData.g);
+ if(hit){selObj=hit.object;selG=hit.object.userData.g;document.querySelectorAll('#ptab tr[data-g]').forEach(tr=>tr.classList.toggle('sel',tr.dataset.g===selG));showSel(hit.object.userData);tab('sel')}else{selObj=null;selG=null;document.querySelectorAll('#ptab tr.sel').forEach(tr=>tr.classList.remove('sel'))}
+ colorAll();draw()});
+/* views and toggles */
+const VIEWS={over:[[-3.2,4.6,6.4],ctr],front:[[BAY,H/2,9],ctr],side:[[9,H/2,D/2],ctr],top:[[BAY,10,D/2+.01],new THREE.Vector3(BAY,0,D/2)],base:[[-.9,.9,2.0],new THREE.Vector3(.2,.1,.4)]};
+function view(k){const [p,t]=VIEWS[k];camera.position.set(...p);controls.target.copy(t);controls.update();draw()}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>view(b.dataset.view));
+const tog=(id,fn)=>{$(id).onclick=()=>{const on=$(id).getAttribute('aria-pressed')!=='true';$(id).setAttribute('aria-pressed',on);fn(on);draw()}};
+tog('tFloor',on=>baseGrp.visible=on);tog('tLoad',on=>loadGrp.visible=on);let spin=false;tog('tSpin',on=>{spin=on;if(on)loop()});
+/* sizing and drawing */
+function size(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();draw()}
+let raf=0;function draw(){if(!raf)raf=requestAnimationFrame(()=>{raf=0;renderer.render(scene,camera)})}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function loop(){if(!spin)return;if(!reduce){const a=.003,p=camera.position.clone().sub(controls.target);p.applyAxisAngle(up,a);camera.position.copy(controls.target.clone().add(p))}controls.update();renderer.render(scene,camera);requestAnimationFrame(loop)}
+controls.addEventListener('change',draw);
+(function damp(){controls.update();requestAnimationFrame(damp)})();
+new ResizeObserver(size).observe(stage);view('over');colorAll();size();
+})();
+</script>
+</body>
+</html>

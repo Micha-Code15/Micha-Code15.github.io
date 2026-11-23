@@ -1,0 +1,843 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Michelle Geldenhuys AI Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a professional portfolio read by recruiters and senior managers; calm, exact, credible
+   IDEA a project register: each tool is an entry with a status stamp, a route from bottleneck to tool, and tagged evidence
+   PICTURE the first screen maps five business bottlenecks through one method to five working tools; the flagship search runs live below
+   COLOUR navy band #0f2a4a dominant, slate blue #4b6a92 support, cobalt #1f5eff accent for matches and actions, white and subtle grey grounds
+   TYPE Manrope 800 for titles, Manrope 400-600 for text
+   LAYOUT laptop: navy band with title over a three-column map; sections alternate text and exhibit side by side. Phone: title, map as problem-to-tool pairs, then one column */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0b1424);--ink:light-dark(#0f1b2d,#e6edf7);--mute:light-dark(#4d5b6e,#9fb0c6);
+--sur:light-dark(#f1f4f8,#111d31);--line:light-dark(#d7dee8,#243350);
+--navy:light-dark(#0f2a4a,#0a1d36);--slate:light-dark(#4b6a92,#8fa8c8);--acc:light-dark(#1f5eff,#7aa2ff);
+--accbg:light-dark(#e6eeff,#18284a);--near:light-dark(#6a5bb0,#b4a8f0);--nearbg:light-dark(#efecfb,#251f44);
+--bad:light-dark(#b4232f,#ff8f99);--badbg:light-dark(#fbe7e9,#3a1a20)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3.4vw,36px)}
+h3{font-size:19px;letter-spacing:-.01em}
+p{margin:0 0 12px;max-width:68ch}
+a{color:var(--acc)}
+.band{padding-block:clamp(32px,4.5vw,64px);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+.in{max-width:1240px;margin:0 auto}
+.alt{background:var(--sur)}
+.top{background:var(--navy);color:#fff;padding-bottom:40px}
+.top .lead{color:#c9d6e8;font-size:18px;max-width:60ch;margin-top:14px}
+.top .cred{color:#9fb4d0;font-size:15px;margin-top:6px}
+nav.scroll{display:flex;gap:4px;overflow-x:auto;padding:8px max(5vw,16px);background:var(--bg);border-bottom:1px solid var(--line);position:relative;z-index:5}
+nav.scroll a{flex:none;color:var(--mute);text-decoration:none;font-weight:600;font-size:14px;padding:10px 12px;border-radius:6px}
+nav.scroll a:hover{color:var(--ink);background:var(--sur)}
+@media(min-width:900px){nav.scroll{position:sticky;top:env(safe-area-inset-top,0px)}}
+.map{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1fr);gap:0 28px;margin-top:34px;align-items:stretch}
+.col{display:grid;gap:10px;align-content:space-between}
+.colh{font-size:13px;color:#9fb4d0;font-weight:600;margin-bottom:2px}
+.pb,.tl{position:relative;padding:12px 14px;border-radius:8px;font-size:15px;line-height:1.35}
+.pb{background:#16365c;color:#dbe5f2}
+.pb::after{content:"";position:absolute;right:-28px;top:50%;width:28px;border-top:2px dashed #4b6a92}
+.tl{background:#fff;color:#0f1b2d;font-weight:700}
+.tl::before{content:"";position:absolute;left:-28px;top:50%;width:28px;border-top:2px solid #7aa2ff}
+.tl small{display:block;font-weight:500;color:#4b6a92;font-size:13px}
+.tl a{color:inherit;text-decoration:none}
+.meth{background:#1f5eff;color:#fff;border-radius:10px;padding:18px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.meth b{font-size:20px;line-height:1.15}
+.meth ol{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px}
+@media(max-width:760px){.map{grid-template-columns:1fr;gap:10px}.pb::after,.tl::before{display:none}.colh{margin-top:8px}}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:start}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+.steps li{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:16px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;margin-bottom:10px}
+.steps b{display:block;margin-bottom:4px}
+.steps span{font-size:15px;color:var(--mute)}
+@media(max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:12px;margin-top:22px}
+.cap{border-top:3px solid var(--slate);padding:12px 2px 0}
+.cap b{display:block;margin-bottom:4px}
+.cap span{font-size:15px;color:var(--mute)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-size:13px;color:var(--mute);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.stamp{display:inline-block;font-size:13px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;background:var(--accbg);color:var(--acc)}
+.stamp.p{background:var(--nearbg);color:var(--near)}
+.stamp.w{background:var(--sur);color:var(--slate);border:1px solid var(--line)}
+.case header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline;margin-bottom:14px}
+.case .sub{color:var(--mute);font-size:15px;margin-bottom:18px}
+.feat{margin:0 0 14px;padding-left:20px}
+.feat li{margin-bottom:6px}
+.route{list-style:none;margin:18px 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.route li{flex:1 1 140px;position:relative;background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--slate);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.35}
+.route li b{display:block;font-size:14px}
+.route li span{color:var(--mute)}
+.route li.me{border-left-color:var(--acc)}
+.legend{font-size:13px;color:var(--mute);display:flex;gap:16px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+.ex{background:var(--sur);border-radius:8px;padding:14px 16px;font-size:15px;margin-top:14px}
+.ex b{display:block;margin-bottom:4px}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px;margin:14px 0}
+.meta dt{color:var(--mute)}.meta dd{margin:0}
+.syn{font-size:13px;color:var(--mute);margin:8px 0 0}
+.mock{border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.mockh{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;background:var(--navy);color:#fff;font-weight:700;font-size:15px}
+.mockh small{font-weight:500;color:#c9d6e8;font-size:13px}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(8.5em,1fr));gap:8px;padding:12px}
+.kp div{background:var(--sur);border-radius:6px;padding:10px}
+.kp b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.kp span{font-size:13px;color:var(--mute)}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--line);font-size:15px}
+.rows li div{flex:1}
+.rows small{display:block;color:var(--mute);font-size:13px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;margin-top:6px;background:var(--slate)}
+.dot.r{background:var(--bad)}.dot.a{background:var(--near)}.dot.g{background:var(--acc)}
+.bar{height:8px;background:var(--sur);border-radius:4px;overflow:hidden;margin:0 14px 12px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.grp{font-size:13px;color:var(--mute);font-weight:700;padding:10px 14px 4px;border-top:1px solid var(--line)}
+/* Register search demo */
+.tool{border:2px solid var(--navy);border-radius:10px;background:var(--bg);overflow:hidden}
+.tool .mockh{border-radius:0}
+#q{width:100%;border:0;border-bottom:1px solid var(--line);background:var(--bg);color:var(--ink);font:700 20px Manrope,sans-serif;padding:14px;outline:none}
+#q:focus-visible{box-shadow:inset 0 0 0 2px var(--acc)}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.fields label{display:block;padding:8px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px;color:var(--mute)}
+.fields label:nth-child(3n){border-right:0}
+.fields input,.fields select{display:block;width:100%;border:0;background:transparent;color:var(--ink);font:700 16px Manrope,sans-serif;padding:4px 0;min-height:32px}
+.fields input:focus-visible,.fields select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(max-width:560px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fields label:nth-child(3n){border-right:1px solid var(--line)}.fields label:nth-child(2n){border-right:0}}
+.opts{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:10px 12px;font-size:14px}
+.opts label{display:flex;gap:6px;align-items:center;min-height:44px}
+.opts input{width:18px;height:18px;accent-color:var(--acc)}
+button{font:600 14px Manrope,sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:10px 14px;min-height:44px;cursor:pointer}
+button:hover{border-color:var(--slate)}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sum{padding:10px 12px;font-size:14px;color:var(--mute);border-top:1px solid var(--line)}
+.res{border-top:1px solid var(--line);padding:12px}
+.res.best{background:var(--accbg)}
+.rh{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
+.rh b{font-size:17px}
+.rh small{display:block;color:var(--mute);font-size:13px}
+.pct{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
+.cmp{margin-top:8px;font-size:14px}
+.cmp td,.cmp th{padding:5px 6px}
+.cmp td:nth-child(2),.cmp td:nth-child(3),.cmp th:nth-child(2),.cmp th:nth-child(3){text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.m{font-weight:700;font-size:13px;white-space:nowrap}
+.m.ok{color:var(--acc)}.m.nr{color:var(--near)}.m.no{color:var(--bad)}.m.un{color:var(--slate)}
+.docs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.docs span{font-size:13px;border:1px solid var(--line);border-radius:4px;padding:2px 8px}
+.docs span.x{color:var(--mute);text-decoration:line-through}
+a.demo{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:12px;padding:10px 16px;border-radius:8px;background:var(--acc);color:#fff;font-weight:700;text-decoration:none}
+a.demo::after{content:"\2192"}
+a.demo:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.foot{background:var(--navy);color:#c9d6e8}
+.foot h2{color:#fff}
+.foot a.btn{display:inline-flex;align-items:center;min-height:48px;background:#fff;color:#0f2a4a;font-weight:800;text-decoration:none;padding:12px 20px;border-radius:8px;margin:16px 0 8px}
+.foot a.btn:focus-visible{outline:3px solid #7aa2ff;outline-offset:3px}
+@media(max-width:600px){table{font-size:13px}th,td{padding:6px 4px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;gap:12px;border:0;text-align:right}.stack td::before{content:attr(data-l);color:var(--mute);text-align:left;flex:none;max-width:45%}}
+@media(prefers-reduced-motion:no-preference){.res{animation:fade .25s ease-out}@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}}
+/* Stamp, configurator and event demos */
+.fields.one{grid-template-columns:1fr}.fields.one label{border-right:0}
+.sigwrap{padding:10px 12px;border-bottom:1px solid var(--line)}
+.siglab{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute);margin-bottom:6px}
+.siglab button{min-height:36px;padding:6px 12px}
+#pad{display:block;width:100%;height:auto;aspect-ratio:4/1;background:#fff;border:1px dashed var(--slate);border-radius:6px;touch-action:none;cursor:crosshair}
+.pv{padding:12px;background:var(--sur);display:flex;justify-content:center}
+#pv{width:100%;max-width:420px;height:auto;border-radius:4px;box-shadow:0 1px 6px rgba(15,27,45,.18)}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button.pri:hover{filter:brightness(1.08)}
+.filebtn{border:1px solid var(--line);border-radius:6px;padding:0 14px;font-weight:600;cursor:pointer}
+.filebtn input{position:absolute;opacity:0;width:1px;height:1px}
+.filebtn:focus-within{outline:2px solid var(--acc);outline-offset:2px}
+.opts input.code{height:auto;accent-color:auto}
+.opts input.code,.code{font:800 20px Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--bg);color:var(--ink);margin-top:4px}
+.opts label:has(.code){flex-direction:column;align-items:stretch;gap:2px}
+.dos{border-left:4px solid var(--acc);padding:4px 0 4px 12px;color:var(--ink)}
+.dos b{display:block;font-size:17px}.dos p{margin:6px 0 0;font-size:15px}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;border:0;border-radius:0;border-bottom:3px solid transparent;background:transparent}
+.tabs button[aria-selected=true]{border-bottom-color:var(--acc);color:var(--acc)}
+.brow{display:grid;grid-template-columns:minmax(0,10em) minmax(0,1fr) 2ch;gap:10px;align-items:center;padding:4px 12px;font-size:14px}
+.brow .t{height:14px;background:var(--sur);border-radius:3px;overflow:hidden}
+.brow .t i{display:block;height:100%;background:var(--slate)}
+.brow.lead .t i{background:var(--acc)}
+.brow b{text-align:right;font-variant-numeric:tabular-nums}
+</style>
+
+
+<header class="band top" id="intro">
+  <div class="in">
+    <h1>Michelle Geldenhuys, MCIPS</h1>
+    <p class="lead">A procurement and operations professional who finds the bottleneck in a business process and builds a practical AI tool to remove it.</p>
+    <p class="cred">MCIPS Chartered · about 15 years in procurement and supply chain · 2 years running an online retail business</p>
+    <div class="map" aria-label="Five business bottlenecks, one method, five working tools">
+      <div class="col">
+        <div class="colh">The bottleneck</div>
+        <div class="pb">About two hours per search through thousands of technical documents</div>
+        <div class="pb">No system for planning a key account portfolio</div>
+        <div class="pb">Technical documents too hard to read to sell from</div>
+        <div class="pb">A filing backlog of unknown size</div>
+        <div class="pb">Actions buried in a busy inbox</div>
+      </div>
+      <div class="meth">
+        <b>My method, built with AI</b>
+        <ol>
+          <li>Find the bottleneck</li>
+          <li>Set the rules and requirements</li>
+          <li>Build with AI tools</li>
+          <li>Verify against real work</li>
+          <li>Keep data safe throughout</li>
+        </ol>
+      </div>
+      <div class="col">
+        <div class="colh">The tool</div>
+        <div class="tl"><a href="#register">Specification Register Search<small>Working prototype · live demo below</small></a></div>
+        <div class="tl"><a href="#crm">Key Account CRM<small>In daily personal use</small></a></div>
+        <div class="tl"><a href="#visualiser">3D Product Visualiser<small>In use, many products</small></a></div>
+        <div class="tl"><a href="#filing">Quote Filing Reconciliation<small>Completed its purpose</small></a></div>
+        <div class="tl"><a href="#briefing">AI Inbox Action Briefing<small>Workflow in daily personal use</small></a></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="scroll" aria-label="Sections">
+  <a href="#approach">Approach</a><a href="#capabilities">Capabilities</a><a href="#projects">Projects</a><a href="#register">Register Search</a><a href="#crm">CRM</a><a href="#visualiser">3D Visualiser</a><a href="#filing">Quote Filing</a><a href="#briefing">Action Briefing</a><a href="#stamp">Stamp &amp; Sign</a><a href="#configurator">Configurator</a><a href="#events">Events</a><a href="#technology">Technology</a><a href="#transfer">Transferability</a><a href="#future">Next</a><a href="#contact">Contact</a>
+</nav>
+
+<section class="band" id="approach">
+  <div class="in">
+    <h2>I don't just ask AI questions. I design the solution and direct the build.</h2>
+    <p style="margin-top:14px">AI tools assist with the code. I decide what the tool must do, set the business rules, test it against real work and correct it until it is right. Every project follows the same five steps.</p>
+    <ol class="steps" style="margin-top:22px">
+      <li><b>Find the bottleneck</b><span>Where work is slow, repeated or depends on one person's memory.</span></li>
+      <li><b>Set the rules</b><span>Requirements, data structure and the business rules the tool must respect.</span></li>
+      <li><b>Build with AI</b><span>I direct multiple AI tools, including Claude, ChatGPT and Gemini, to develop and refine the solution.</span></li>
+      <li><b>Verify</b><span>Test against real cases, show sources, flag what is missing or uncertain.</span></li>
+      <li><b>Keep data safe</b><span>Permission first, minimal data, local file handling, a person confirms the output.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band alt" id="capabilities">
+  <div class="in">
+    <h2>What I can build</h2>
+    <div class="caps">
+      <div class="cap"><b>Business applications</b><span>Multi-view web apps with saved data, dashboards and connected email and documents.</span></div>
+      <div class="cap"><b>Decision-support tools</b><span>Weighted matching and scoring that ranks options and shows why.</span></div>
+      <div class="cap"><b>Data structuring</b><span>Turning scattered files and spreadsheets into clean, searchable registers.</span></div>
+      <div class="cap"><b>Document verification</b><span>Cross-checking technical documents and recalculating values to find mismatches.</span></div>
+      <div class="cap"><b>Reconciliations</b><span>Register against folder, and parts lists against picking notes.</span></div>
+      <div class="cap"><b>AI workflows</b><span>Repeatable briefings that triage email into clear, owned actions.</span></div>
+      <div class="cap"><b>Secure, real-time apps</b><span>Encrypted personal content and live multi-user voting with host-only views.</span></div>
+      <div class="cap"><b>Document automation</b><span>Batch stamping and signing of PDFs on the user's own device.</span></div>
+      <div class="cap"><b>Technical documentation</b><span>Quotation templates, installation guidelines and client background forms.</span></div>
+      <div class="cap"><b>Spreadsheet tools</b><span>Forecasting models, drill-down status reports, macros, VBA and dashboards, built over 15 years.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="projects">
+  <div class="in">
+    <h2>Project portfolio</h2>
+    <p style="margin-top:12px">Every project below is described from the working tool. Examples use the fictional company DEMO and synthetic data; no real client, supplier, price or document appears.</p>
+    <div class="scroll" style="margin-top:16px">
+      <table class="stack">
+        <thead><tr><th>Project</th><th>Category</th><th>Status</th><th>Built with</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Project"><a href="#register">Specification Register Search</a></td><td data-l="Category">Decision support</td><td data-l="Status"><span class="stamp p">Working prototype</span></td><td data-l="Built with">AI-assisted development, web page, Excel register</td></tr>
+          <tr><td data-l="Project"><a href="#crm">Key Account CRM</a> · <a href="crm-demo.html">demo</a></td><td data-l="Category">Business application</td><td data-l="Status"><span class="stamp">In daily personal use</span></td><td data-l="Built with">AI-assisted development, Gmail and Drive</td></tr>
+          <tr><td data-l="Project"><a href="#visualiser">3D Product Visualiser</a> · <a href="3d-demo.html">demo</a></td><td data-l="Category">Product knowledge, verification</td><td data-l="Status"><span class="stamp">In use</span></td><td data-l="Built with">AI tools, three.js</td></tr>
+          <tr><td data-l="Project"><a href="#filing">Quote Filing Reconciliation</a></td><td data-l="Category">Administrative control</td><td data-l="Status"><span class="stamp w">Completed</span></td><td data-l="Built with">AI tools, Drive</td></tr>
+          <tr><td data-l="Project"><a href="#briefing">AI Inbox Action Briefing</a></td><td data-l="Category">AI workflow</td><td data-l="Status"><span class="stamp">In daily personal use</span></td><td data-l="Built with">AI tools, Gmail</td></tr>
+          <tr><td data-l="Project"><a href="#stamp">Batch PDF Stamp &amp; e-Signature</a></td><td data-l="Category">Document automation</td><td data-l="Status"><span class="stamp">Working</span></td><td data-l="Built with">AI tools, pdf-lib, JSZip</td></tr>
+          <tr><td data-l="Project"><a href="#configurator">3D Product Configurator</a></td><td data-l="Category">Product knowledge, verification</td><td data-l="Status"><span class="stamp">Working</span></td><td data-l="Built with">AI tools, three.js</td></tr>
+          <tr><td data-l="Project"><a href="#events">Interactive Event Platform</a></td><td data-l="Category">Own venture, real-time apps</td><td data-l="Status"><span class="stamp p">Built and tested</span></td><td data-l="Built with">AI tools, Web Crypto, live database</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band alt case" id="register">
+  <div class="in">
+    <header><h2>Specification Register Search</h2><span class="stamp p">Working prototype</span></header>
+    <p class="sub">Finds the closest existing specification for a new enquiry in minutes, by scoring every entry in the register against the enquiry.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> Before quoting, an existing approved specification that matches the client's request has to be found. These sat across thousands of technical documents and reports, and finding one took about two hours of opening files one by one.</p>
+        <p><b>What I built.</b> I restructured the specification register first, then had AI tools build a search on top of it. Type an enquiry in plain words; the tool ranks every entry and shows exactly which values match.</p>
+        <ul class="feat">
+          <li>Plain-language search: type the enquiry in ordinary words and the specification fields fill themselves</li>
+          <li>Weighted match score across the key specifications, counting only what was asked</li>
+          <li>Partial credit for near values; missing data shown as "Not recorded", never hidden</li>
+          <li>One tool for two departments, each with its own filters</li>
+          <li>Reads newer register files on the user's device only; nothing uploaded</li>
+          <li>Every match is confirmed by the specialist team before quoting</li>
+        </ul>
+        <ol class="route" aria-label="Development route">
+          <li><b>Bottleneck</b><span>Hours per search</span></li>
+          <li class="me"><b>Register rules</b><span>Tabs, links, cut-off date</span></li>
+          <li class="me"><b>Filters</b><span>From two user teams</span></li>
+          <li><b>AI build</b><span>Search and scoring</span></li>
+          <li class="me"><b>Test</b><span>Real enquiries, v2</span></li>
+        </ol>
+        <p class="legend"><span><i style="background:var(--acc)"></i>My decisions</span><span><i style="background:var(--slate)"></i>Shared or AI-built</span></p>
+        <dl class="meta"><dt>Result</dt><dd>A search that took about two hours now takes about three minutes. The client asked for a full build, and a second department asked to be added.</dd><dt>Also fits</dt><dd>Product catalogues, equipment specifications, tender libraries, standard contracts. The demo shows the same logic on a footwear catalogue.</dd></dl>
+      </div>
+      <div>
+        <div class="tool" role="region" aria-label="Live demo of the register search">
+          <div class="mockh">DEMO product library search <small>Live demo · synthetic data</small></div>
+          <input id="q" autocomplete="off" aria-label="Describe the enquiry" value="size 8 safety boot R650 10 days">
+          <div class="fields">
+            <label for="fh">Size (UK)<input id="fh" inputmode="decimal"></label>
+            <label for="fa">Price per pair (R)<input id="fa" inputmode="numeric"></label>
+            <label for="fw">Lead time (days)<input id="fw" inputmode="numeric"></label>
+            <label for="fs">Weight per shoe (g)<input id="fs" inputmode="numeric"></label>
+            <label for="fk">Minimum order (pairs)<input id="fk" inputmode="numeric"></label>
+            <label for="fc">Toe protection<select id="fc"><option value="">Any</option><option>Steel toe</option><option>Composite toe</option><option>No toe cap</option></select></label>
+          </div>
+          <div class="opts">
+            <label><input type="checkbox" id="ex"> Exact matches only</label>
+            <label><input type="checkbox" id="ga"> Has test certificate</label>
+            <button type="button" id="clr">Clear</button>
+            <button type="button" id="eg">Try another enquiry</button>
+          </div>
+          <div class="sum" id="sum" aria-live="polite"></div>
+          <div id="out"></div>
+        </div>
+        <p class="syn">The original searches a technical specification register. This demo applies the same logic to a fictional safety footwear library of 40 products. Weights: size 30, price 25, lead time 20, weight 15, minimum order 10. Near values earn 60% (size within 1, price within R100, lead time within 3 days, weight within 100 g, order within 20 pairs). Not recorded earns 20%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band case" id="crm">
+  <div class="in">
+    <header><h2>Key Account CRM</h2><span class="stamp">In daily personal use</span></header>
+    <p class="sub">A key account management system built because no account planning system was in place.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> I took over a multi-country account portfolio with client history spread across emails, spreadsheets and a quotation register. There was no single view of who had gone quiet or which quotes were waiting.</p>
+        <p><b>What I built.</b> With AI-assisted development, a CRM shaped around how an account manager works each morning, now in its second version.</p>
+        <ul class="feat">
+          <li>Today view: overdue follow-ups, weighted pipeline, quotes awaiting reply, accounts at risk</li>
+          <li>Contact rhythm per account: amber past 70%, red past 100%, one-click client update draft</li>
+          <li>Six-stage pipeline with win probabilities, quote builder with discounts and 15% VAT</li>
+          <li>Contact roles, health ratings, 90-day renewal warnings, handover tags</li>
+          <li>Excel import, Gmail lookups and a standard Drive folder per client</li>
+        </ul>
+        <ol class="route" aria-label="Development route">
+          <li><b>Bottleneck</b><span>No planning system</span></li>
+          <li class="me"><b>Design</b><span>Rhythm, health, handover</span></li>
+          <li><b>AI-assisted development</b><span>Version 1, Oct</span></li>
+          <li class="me"><b>Daily use</b><span>Live accounts</span></li>
+          <li><b>Version 2</b><span>Nov</span></li>
+        </ol>
+        <dl class="meta"><dt>Result</dt><dd>Keeps client details and updates current, with follow-ups that surface themselves.</dd><dt>Also fits</dt><dd>Supplier relationship management, customer success, distributor and property management.</dd></dl>
+      </div>
+      <div>
+        <div class="mock" aria-label="Illustrative mock-up of the CRM Today view">
+          <div class="mockh">Today · Monday <small>Mock-up · synthetic data</small></div>
+          <div class="kp">
+            <div><b style="color:var(--bad)">2</b><span>Overdue follow-ups</span></div>
+            <div><b>R2.4m</b><span>Open pipeline</span></div>
+            <div><b>R1.1m</b><span>Weighted</span></div>
+            <div><b>7</b><span>Quotes awaiting reply</span></div>
+          </div>
+          <div class="grp">Going quiet</div>
+          <ul class="rows">
+            <li><span class="dot r"></span><div><b>C004 · Distributor D</b><small>41 days since contact · rhythm 30 days</small></div><button type="button" tabindex="-1">Draft update</button></li>
+            <li><span class="dot a"></span><div><b>C009 · Retail Group I</b><small>24 days since contact · rhythm 30 days</small></div></li>
+          </ul>
+          <div class="grp">Quotes awaiting reply</div>
+          <ul class="rows">
+            <li><div><b>DQ-0112</b> Safety footwear, 120 pairs<small>C002 · sent 16 days ago</small></div><b style="white-space:nowrap">R185 000</b></li>
+          </ul>
+        </div>
+        <p class="syn">Illustrative mock-up.</p>
+        <a class="demo" href="crm-demo.html">Open the working CRM demo</a>
+        <p class="syn">Fictional accounts and synthetic figures. Today, Accounts, Pipeline and Quotes all work; changes stay in your browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt case" id="visualiser">
+  <div class="in">
+    <header><h2>3D Product Visualiser and Document Cross-Check</h2><span class="stamp">In use</span></header>
+    <p class="sub">Interactive 3D models of technical products built from their drawings, with a parts list and a cross-check of the documents.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> I sell technical products and their components. Flat drawings and technical reports are hard for a commercial person to read, and the documents for one product are rarely checked against each other.</p>
+        <p><b>What I built.</b> Rotatable 3D models of many products, first on an earlier AI tools account, each linked to a parts list where every value shows its source.</p>
+        <ul class="feat">
+          <li>Preset views, measurements, and colour coding by design data</li>
+          <li>Tap a part to highlight it; quantities and specifications listed by section</li>
+          <li>Each value tagged: from the drawings, calculated, or inferred and to confirm</li>
+          <li>Masses recalculated from geometry and compared with the technical report</li>
+          <li>Labelled as a visual aid only, never for fabrication</li>
+        </ul>
+        <ol class="route" aria-label="Development route">
+          <li><b>Need</b><span>Product knowledge</span></li>
+          <li><b>Inputs</b><span>Drawings and reports</span></li>
+          <li class="me"><b>Source tagging</b><span>My requirement</span></li>
+          <li><b>Cross-check</b><span>Mismatches listed</span></li>
+          <li class="me"><b>Specialist review</b><span>Findings confirmed</span></li>
+        </ol>
+        <dl class="meta"><dt>Result</dt><dd>Taught me the products well enough to sell them. Reviewers were surprised by how quickly and accurately the data was pulled through.</dd><dt>Also fits</dt><dd>Machinery and spares, building components, supplier technical submissions.</dd></dl>
+      </div>
+      <div>
+        <div class="mock" aria-label="Illustrative drawing of a safety boot with parts and a cross-check alert">
+          <div class="mockh">Safety boot · DEMO-SB-08-A <small>Mock-up · invented product</small></div>
+          <div style="display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:12px;padding:14px;align-items:center">
+            <svg viewBox="0 0 200 150" role="img" aria-label="Side view of a safety boot showing upper, toe cap, midsole and outsole" style="width:100%;height:auto;color:var(--slate)">
+              <path d="M40 20 L95 20 L100 80 Q140 82 175 100 Q188 106 186 118 L30 118 Q26 70 40 20Z" fill="currentColor" opacity=".8"/>
+              <path d="M130 86 Q165 92 184 108 Q187 114 186 118 L130 118Z" fill="var(--acc)"/>
+              <rect x="26" y="118" width="164" height="10" rx="3" fill="currentColor" opacity=".45"/>
+              <path d="M24 128 L192 128 Q194 140 186 142 L30 142 Q22 140 24 128Z" fill="currentColor"/>
+              <g stroke="var(--bg)" stroke-width="2"><line x1="70" y1="32" x2="92" y2="30"/><line x1="72" y1="46" x2="94" y2="44"/><line x1="74" y1="60" x2="96" y2="58"/></g>
+            </svg>
+            <ul class="rows" style="border:1px solid var(--line);border-radius:6px">
+              <li><div><b>Outsole</b><small>Calculated 412 g · spec sheet 380 g</small></div><span class="m no">Mismatch</span></li>
+              <li><div><b>Toe cap</b><small>Spec sheet and test certificate agree</small></div><span class="m ok">Match</span></li>
+              <li><div><b>Laces</b><small>Length not given on spec sheet</small></div><span class="m un">Confirm</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="syn">Illustrative mock-up with an invented product and invented findings.</p>
+        <a class="demo" href="3d-demo.html">Open the working 3D demo</a>
+        <p class="syn">An invented two-bay storage frame: rotate it, tap parts, colour by utilisation, and see the document cross-check.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band case" id="filing">
+  <div class="in">
+    <header><h2>Quote Filing Reconciliation</h2><span class="stamp w">Completed its purpose</span></header>
+    <p class="sub">Compares the quotation register with the filing folder, lists every quote with no PDF, and tracks the backlog until it is clear.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> After a portfolio handover, nobody knew how far filing had fallen behind, and checking over a hundred quotes against a folder by hand is slow and error-prone.</p>
+        <p><b>What I built.</b> A reconciliation that turns the gap into a working checklist: what is missing, what can be skipped, and what needs a second look.</p>
+        <ul class="feat">
+          <li>Register matched against folder contents on a stated date</li>
+          <li>Cancelled and replaced quotes grouped apart, so no time is wasted on them</li>
+          <li>Revised quotes and entries with no status flagged for checking</li>
+          <li>Search, filters and a progress bar while working through the list</li>
+        </ul>
+        <dl class="meta"><dt>Result</dt><dd>The filing backlog has been cleared.</dd><dt>Also fits</dt><dd>POs against goods received notes, invoices against POs, certificates against an approved supplier list.</dd></dl>
+      </div>
+      <div>
+        <div class="mock" aria-label="Illustrative mock-up of the filing checklist">
+          <div class="mockh">Quotes missing from the folder <small>Mock-up · synthetic data</small></div>
+          <p style="padding:12px 14px 8px;margin:0;font-size:15px">84 quotes in the register, 31 in the folder. <b>46 to file</b>, 7 cancelled or replaced.</p>
+          <div class="bar"><i style="width:37%"></i></div>
+          <ul class="rows">
+            <li><div><b>DQ-0147</b> · C006<small>Revised: file revision B</small></div><span class="m nr">Check</span></li>
+            <li><div><b>DQ-0152</b> · C011<small>No date or status in register</small></div><span class="m nr">Check</span></li>
+            <li><div><b>DQ-0139</b> · C002<small>PPE order, 40 pairs</small></div><span class="m un">To file</span></li>
+          </ul>
+        </div>
+        <p class="syn">Illustrative mock-up with synthetic figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt case" id="briefing">
+  <div class="in">
+    <header><h2>AI Inbox Action Briefing</h2><span class="stamp">Workflow in daily personal use</span></header>
+    <p class="sub">On request, AI tools reads the inbox and sent items and builds a dated action list, coloured by whose move it is.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> A sales role runs on email, and important actions get buried. It is hard to see at a glance what is waiting on me and what is waiting on someone else.</p>
+        <p><b>What I built.</b> A repeatable briefing, refined over 17 versions, with categories I defined: Urgent, To do, Waiting, Done and New since last update.</p>
+        <ul class="feat">
+          <li>Sent items count as replies, so answered threads drop off</li>
+          <li>I add what happened offline: calls and meetings</li>
+          <li>Grouped by when it is due, then waiting on others, then closed</li>
+          <li>Next step: merging into the Key Account CRM</li>
+        </ul>
+        <dl class="meta"><dt>Result</dt><dd>A faster start to the day and fewer dropped follow-ups.</dd><dt>Also fits</dt><dd>Buyers chasing suppliers and approvals, project coordinators, operations managers.</dd></dl>
+      </div>
+      <div>
+        <div class="mock" aria-label="Illustrative mock-up of the action briefing">
+          <div class="mockh">Open actions <small>Mock-up · synthetic data</small></div>
+          <div class="kp"><div><b>1</b><span>Tomorrow</span></div><div><b>3</b><span>Later this week</span></div><div><b>6</b><span>Waiting on others</span></div><div><b>5</b><span>Closed</span></div></div>
+          <div class="grp">Tomorrow</div>
+          <ul class="rows"><li><span class="dot a"></span><div><b>C007: lead-time reminder</b><small>To do · they still need to confirm the required date</small></div></li></ul>
+          <div class="grp">Waiting on others</div>
+          <ul class="rows"><li><span class="dot"></span><div><b>C002: quote DQ-0131 under review</b><small>Waiting since 18 Nov</small></div></li></ul>
+        </div>
+        <p class="syn">Illustrative mock-up with synthetic items.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band case" id="stamp">
+  <div class="in">
+    <header><h2>Batch PDF Stamp &amp; e-Signature</h2><span class="stamp">Working</span></header>
+    <p class="sub">Stamps and signs a whole batch of PDF documents in one go, entirely in the browser.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> Released documents each need the same approval stamp, details, date and signature. Doing it file by file in a PDF editor is slow, and the position and size are never quite the same twice.</p>
+        <p><b>What I built.</b> One page: fill in the stamp once, draw or upload a signature, drop in any number of PDFs and download them all stamped and signed as a single ZIP. Nothing leaves the computer.</p>
+        <ul class="feat">
+          <li>Signature drawn on a pad or uploaded, remembered for next time</li>
+          <li>Stamp on the first, every or last page; size set automatically by page size or chosen</li>
+          <li>White backing so the stamp stays readable over busy drawings</li>
+          <li>Many files at once, returned as one ZIP</li>
+          <li>All processing on the user's own device, so there is no upload and no licence</li>
+        </ul>
+        <ol class="route" aria-label="Development route">
+          <li><b>Bottleneck</b><span>Stamping file by file</span></li>
+          <li class="me"><b>Rules</b><span>Content and placement</span></li>
+          <li><b>AI build</b><span>pdf-lib, JSZip</span></li>
+          <li class="me"><b>Test</b><span>Mixed page sizes</span></li>
+          <li class="me"><b>Refine</b><span>Auto size, backing</span></li>
+        </ol>
+        <dl class="meta"><dt>Result</dt><dd>One step instead of file by file, with an identical stamp on every page.</dd><dt>Also fits</dt><dd>Approved stamps on supplier documents, receiving stamps on delivery notes, controlled-copy marking, audit evidence packs.</dd></dl>
+      </div>
+      <div>
+        <div class="tool" role="region" aria-label="Live demo of the stamp and sign tool">
+          <div class="mockh">DEMO stamp &amp; sign <small>Live demo · runs in your browser</small></div>
+          <div class="fields">
+            <label for="sc">Company<input id="sc" value="Example Manufacturing Group"></label>
+            <label for="sp">Project<input id="sp" value="DEMO-114 Warehouse fit-out"></label>
+            <label for="sd">Date<input id="sd" type="date"></label>
+            <label for="ss">Status<select id="ss"><option>Approved for construction</option><option>Approved</option><option>For information only</option></select></label>
+            <label for="sg">Stamp on<select id="sg"><option value="first">First page</option><option value="all">Every page</option><option value="last">Last page</option></select></label>
+            <label for="sz">Size<select id="sz"><option value="auto">Auto by page</option><option value="0.8">Small</option><option value="1">Normal</option><option value="1.3">Large</option></select></label>
+          </div>
+          <div class="sigwrap">
+            <div class="siglab"><span>Signature: draw here</span><button type="button" id="sclr">Clear</button></div>
+            <canvas id="pad" width="600" height="150" aria-label="Signature pad"></canvas>
+          </div>
+          <div class="pv"><canvas id="pv" width="840" height="400" aria-label="Preview of the stamp on a page"></canvas></div>
+          <div class="opts">
+            <button type="button" id="srun" class="pri">Stamp 3 sample PDFs</button>
+            <label class="filebtn"><input type="file" id="sfile" accept="application/pdf" multiple> Stamp your own PDFs</label>
+          </div>
+          <div class="sum" id="ssum" aria-live="polite">Draw a signature, then stamp the samples.</div>
+        </div>
+        <p class="syn">Sample PDFs are generated in your browser with invented content. Your own files are processed on your device and never uploaded.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt case" id="configurator">
+  <div class="in">
+    <header><h2>3D Product Configurator and Assembly Guide</h2><span class="stamp">Working</span></header>
+    <p class="sub">Shows how a family of mounting components fits together and adjusts, checks the load, and lists the inconsistencies it finds in the drawings.</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> Sales staff need to explain how configurable components fit, adjust and differ between variants, and the drawings for one product family do not always agree with each other.</p>
+        <p><b>What I built.</b> An interactive 3D guide built from the production and assembly drawings, with a cross-check of the sheets that I asked for.</p>
+        <ul class="feat">
+          <li>Choose a family and series; assembled, exploded or step-by-step build</li>
+          <li>Adjustment settings shown against the angle of the mounting surface</li>
+          <li>Loading check against the limits printed on the drawings</li>
+          <li>Moving-part demonstration and a variant comparison table</li>
+          <li>Drawing inconsistencies graded: could affect ordering, or housekeeping</li>
+        </ul>
+        <dl class="meta"><dt>Result</dt><dd>Product training without a workshop visit, and drawing conflicts raised before anything is ordered.</dd><dt>Also fits</dt><dd>Shelving and fixtures, valves and fittings, furniture systems, any configurable product.</dd></dl>
+      </div>
+      <div>
+        <div class="mock" aria-label="Illustrative mock-up of the configurator's checks">
+          <div class="mockh">Wall bracket · DEMO-WB-60 <small>Mock-up · invented product</small></div>
+          <div class="kp"><div><b>42 kg</b><span>Load per arm</span></div><div><b>60 kg</b><span>Drawing limit</span></div><div><b style="color:var(--acc)">70%</b><span>Of limit used</span></div></div>
+          <div class="grp">Inconsistencies found in the drawings</div>
+          <ul class="rows">
+            <li><span class="dot r"></span><div><b>Bolt grade differs</b><small>Assembly drawing 8.8, parts list 4.6 · could affect ordering</small></div></li>
+            <li><span class="dot"></span><div><b>Revision letter missing on sheet 2</b><small>Housekeeping · worth asking</small></div></li>
+          </ul>
+        </div>
+        <p class="syn">Illustrative mock-up with an invented product and invented findings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band case" id="events">
+  <div class="in">
+    <header><h2>Interactive Event Platform</h2><span class="stamp p">Built and tested</span></header>
+    <p class="sub">Beyond business: web apps for hosted murder-mystery evenings, run under my own events brand (shown here as Example Mystery Evenings).</p>
+    <div class="two">
+      <div>
+        <p><b>The challenge.</b> An interactive evening for 15 guests means private character briefs, clues released at the right moment, and votes counted fast at the finale. Paper packs get lost or read by the wrong person.</p>
+        <p><b>What I built.</b> I wrote the storylines and designed the game flow; AI tools built the apps. Built and tested with groups of people, ahead of a public launch.</p>
+        <ul class="feat">
+          <li>Secret dossiers encrypted (AES-GCM), each opened only with the guest's own code</li>
+          <li>Evidence released in stages with codes the host announces</li>
+          <li>Guests vote from their own phones; only the host sees the live tally</li>
+          <li>Paper-slip entry and WhatsApp or email backup if the connection fails</li>
+          <li>Host guides, story bibles and a printable cast sheet for each storyline</li>
+        </ul>
+        <dl class="meta"><dt>Why it matters</dt><dd>Secure design, real-time multi-user apps and guest-facing polish under pressure. These are the same skills my business tools rely on.</dd><dt>Also fits</dt><dd>Training simulations, personalised secure briefings, live polling at supplier days and conferences.</dd></dl>
+      </div>
+      <div>
+        <div class="tool" role="region" aria-label="Live demo of an encrypted dossier">
+          <div class="mockh">Open your dossier <small>Live demo · real encryption</small></div>
+          <div class="opts"><label for="dc" style="flex:1">Your six-character code <input id="dc" maxlength="6" autocomplete="off" class="code" placeholder="e.g. FINCH7"></label><button type="button" id="dgo" class="pri">Open</button></div>
+          <div class="sum" id="dout" aria-live="polite">Try the code <b>FINCH7</b>. Any other code fails, because the text can only be decrypted with the right one.</div>
+        </div>
+        <div class="tool" role="region" aria-label="Live demo of the ballot and host tally" style="margin-top:16px">
+          <div class="mockh">Murder on the Midnight Frequency · ballot <small>Live demo</small></div>
+          <div class="tabs" role="tablist"><button type="button" role="tab" id="tg" aria-selected="true">Guest phone</button><button type="button" role="tab" id="th" aria-selected="false">Host tally</button></div>
+          <div id="pg" class="pane">
+            <div class="fields one">
+              <label for="bv">Who are you?<select id="bv"></select></label>
+              <label for="bs">Who killed Augustus Harrow?<select id="bs"></select></label>
+              <label for="bm">How?<select id="bm"></select></label>
+              <label for="bw">Why?<select id="bw"></select></label>
+            </div>
+            <div class="opts"><button type="button" id="bgo" class="pri">Lock in my vote</button></div>
+            <div class="sum" id="bmsg" aria-live="polite">Pick your name, a suspect, a method and a motive.</div>
+          </div>
+          <div id="ph" class="pane" hidden>
+            <div class="sum" id="bstat"></div>
+            <div id="bars"></div>
+            <div class="opts"><button type="button" id="bsim">Simulate 10 guests</button><button type="button" id="bclr">Clear votes</button></div>
+            <div class="sum" id="bmiss"></div>
+          </div>
+        </div>
+        <p class="syn">Demo: votes stay on this page. In the real platform each guest votes from their own phone into a shared live database. The cast and options are from my original storyline; the sample dossier was written for this demo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="technology">
+  <div class="in two">
+    <div>
+      <h2>Technology and tools</h2>
+      <p style="margin-top:14px">I am not a software engineer. I use AI to build working software, and I bring the business judgement it cannot supply on its own.</p>
+    </div>
+    <div class="scroll">
+      <table class="stack">
+        <thead><tr><th>Tool</th><th>How I use it</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Tool">AI tools (chat and artifacts)</td><td data-l="How I use it">Designing, building and testing web tools, data work and documents</td></tr>
+          <tr><td data-l="Tool">AI-assisted development</td><td data-l="How I use it">Building the full CRM application</td></tr>
+          <tr><td data-l="Tool">Gmail and Google Drive connectors</td><td data-l="How I use it">Email triage, document lookups and client folders</td></tr>
+          <tr><td data-l="Tool">pdf-lib and JSZip</td><td data-l="How I use it">Stamping, signing and zipping PDFs in the browser</td></tr>
+          <tr><td data-l="Tool">Web Crypto and a live shared database</td><td data-l="How I use it">Encrypted dossiers and real-time voting in the event apps</td></tr>
+          <tr><td data-l="Tool">HTML, JavaScript, three.js</td><td data-l="How I use it">What the tools run on, written by AI to my specification</td></tr>
+          <tr><td data-l="Tool">Excel</td><td data-l="How I use it">Registers and imports; earlier, forecasting, drill-down reports, macros and VBA</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="transfer">
+  <div class="in">
+    <h2>The patterns carry across industries</h2>
+    <div class="scroll" style="margin-top:18px">
+      <table class="stack">
+        <thead><tr><th>Pattern</th><th>Procurement and supply chain</th><th>Operations</th><th>Other sectors</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Pattern"><b>Register and weighted search</b></td><td data-l="Procurement">Tender and contract libraries</td><td data-l="Operations">Maintenance procedures</td><td data-l="Other">Product data sheets</td></tr>
+          <tr><td data-l="Pattern"><b>Relationship tracker</b></td><td data-l="Procurement">Supplier relationship management</td><td data-l="Operations">Contractor management</td><td data-l="Other">Customer success</td></tr>
+          <tr><td data-l="Pattern"><b>Document cross-check</b></td><td data-l="Procurement">Supplier technical submissions</td><td data-l="Operations">Equipment specifications</td><td data-l="Other">Building components</td></tr>
+          <tr><td data-l="Pattern"><b>Reconciliation</b></td><td data-l="Procurement">Invoices against POs and GRNs</td><td data-l="Operations">Stock against picking notes</td><td data-l="Other">Audit document trails</td></tr>
+          <tr><td data-l="Pattern"><b>Action briefing</b></td><td data-l="Procurement">Chasing suppliers and approvals</td><td data-l="Operations">Daily coordination</td><td data-l="Other">Project management</td></tr>
+          <tr><td data-l="Pattern"><b>Batch document stamping</b></td><td data-l="Procurement">Approved stamps on supplier documents</td><td data-l="Operations">Receiving stamps on delivery notes</td><td data-l="Other">Audit evidence packs</td></tr>
+          <tr><td data-l="Pattern"><b>Secure briefs and live polling</b></td><td data-l="Procurement">Supplier day voting</td><td data-l="Operations">Training simulations</td><td data-l="Other">Conferences and workshops</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="future">
+  <div class="in">
+    <h2>What comes next</h2>
+    <ul class="feat" style="margin-top:16px">
+      <li>The action briefing merged into the CRM, so actions and accounts live in one place</li>
+      <li>Public launch of the event platform under its registered brand</li>
+      <li>Personal projects, including websites and apps, added as further case studies</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="band foot" id="contact">
+  <div class="in">
+    <h2>Let's talk about your bottleneck</h2>
+    <p style="margin-top:12px">I am open to conversations about AI adoption, process improvement and practical tools for procurement and operations teams.</p>
+    <!-- LinkedIn button: add the profile URL here when ready -->
+    <p style="font-size:13px">Michelle Geldenhuys, MCIPS. All business examples use the fictional company DEMO (Example Manufacturing Group) and synthetic data.</p>
+  </div>
+</footer>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+let s=20261123;const rnd=()=>(s=s*16807%2147483647)/2147483647;
+const pick=a=>a[Math.floor(rnd()*a.length)];
+const fixed=[
+ ['DEMO-SB-08-A','Safety boot',8,690,10,640,50,'Steel toe','Rubber sole',1],
+ ['DEMO-SB-09-B','Safety boot',9,650,14,660,50,'Steel toe','PU sole',1],
+ ['DEMO-SB-08-C','Safety boot',8,650,null,null,100,'Composite toe','Rubber sole',0],
+ ['DEMO-SS-06-A','Safety shoe',6,540,7,480,30,'Composite toe','PU sole',1],
+ ['DEMO-GB-10-A','Gumboot',10,310,5,900,200,'Steel toe','Nitrile sole',1],
+ ['DEMO-CB-07-A','Chelsea boot',7,720,12,610,40,'Steel toe','Rubber sole',1],
+ ['DEMO-HK-09-A','Hiker',9,820,10,560,24,'No toe cap','Rubber sole',0]];
+const types=['Safety boot','Safety shoe','Gumboot','Chelsea boot','Hiker'],pre={'Safety boot':'SB','Safety shoe':'SS','Gumboot':'GB','Chelsea boot':'CB','Hiker':'HK'};
+const D=fixed.map(r=>({id:r[0],t:r[1],h:r[2],a:r[3],w:r[4],s:r[5],k:r[6],c:r[7],f:r[8],ga:r[9]}));
+while(D.length<40){const t=pick(types),z=pick([4,5,6,7,9,10,11,12]);
+ const id='DEMO-'+pre[t]+'-'+String(z).padStart(2,'0')+'-'+'DEFGH'[D.length%5];
+ if(D.some(d=>d.id===id))continue;
+ D.push({id,t,h:z,a:t==='Gumboot'?250+Math.round(rnd()*15)*10:450+Math.round(rnd()*45)*10,w:rnd()<.1?null:pick([5,7,10,14,21]),s:rnd()<.15?null:450+Math.round(rnd()*40)*10,k:rnd()<.15?null:pick([20,30,50,100,200]),c:t==='Hiker'?'No toe cap':pick(['Steel toe','Composite toe']),f:pick(['Rubber sole','PU sole','Nitrile sole']),ga:rnd()<.8?1:0});}
+const F=[['h','Size (UK)','',30,1,'fh'],['a','Price per pair','R',25,100,'fa'],['w','Lead time','days',20,3,'fw'],['s','Weight per shoe','g',15,100,'fs'],['k','Minimum order','pairs',10,20,'fk']];
+const num=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
+const fv=(u,v)=>u==='R'?'R'+v:(u?v+' '+u:String(v));
+function parse(){let t=' '+$('q').value.toLowerCase()+' ';const g=(re,f)=>{const m=t.match(re);if(m){t=t.replace(m[0],' ');return f(m)}return ''};
+ $('fh').value=g(/size\s*(\d+(?:\.\d+)?)/,m=>m[1]);
+ $('fa').value=g(/\br\s?(\d+)/,m=>m[1]);
+ $('fw').value=g(/(\d+)\s*days?\b/,m=>m[1]);
+ $('fk').value=g(/(\d+)\s*pairs?\b/,m=>m[1]);
+ $('fs').value=g(/(\d+)\s*g\b/,m=>m[1]);
+ return t.split(/\s+/).filter(w=>w.length>1);}
+let words=parse();
+function score(d){let got=0,max=0;const rows=[];
+ for(const [k,l,u,wt,tol,el] of F){const q=num($(el).value);if(q===null)continue;max+=wt;const v=d[k];let st,p;
+  if(v===null){st='un';p=.2}else if(Math.abs(v-q)<.01){st='ok';p=1}else if(Math.abs(v-q)<=tol){st='nr';p=.6}else{st='no';p=0}
+  got+=wt*p;rows.push({l,u,q,v,st});}
+ return {p:max?Math.round(got/max*100):100,rows,exact:rows.every(r=>r.st==='ok')};}
+const lab={ok:'Match',nr:'Close',no:'Differs',un:'Not recorded'};
+function run(){const code=$('fc').value,ex=$('ex').checked,ga=$('ga').checked;
+ let L=D.filter(d=>{const hay=(d.id+' '+d.t+' '+d.c+' '+d.f).toLowerCase();return words.every(w=>hay.includes(w))&&(!code||d.c===code)&&(!ga||d.ga)}).map(d=>({d,...score(d)}));
+ if(ex)L=L.filter(r=>r.exact);
+ L.sort((a,b)=>b.p-a.p||a.d.id.localeCompare(b.d.id));
+ const asked=F.filter(f=>num($(f[5]).value)!==null).length;
+ $('sum').textContent=L.length?`${L.length} product${L.length>1?'s':''} found${asked?', ranked by match':''}. Showing ${Math.min(5,L.length)}.`:'No products match. Untick "Exact matches only" or remove a word.';
+ $('out').innerHTML=L.slice(0,5).map((r,i)=>`<div class="res${i===0&&r.p>0?' best':''}"><div class="rh"><div><b>${r.d.id}</b><small>${r.d.t} · ${r.d.c} · ${r.d.f}</small></div><div class="pct">${r.p}%</div></div>${r.rows.length?`<div class="scroll"><table class="cmp"><thead><tr><th>Field</th><th>Asked</th><th>Recorded</th><th></th></tr></thead><tbody>${r.rows.map(x=>`<tr><td>${x.l}</td><td>${fv(x.u,x.q)}</td><td>${x.v===null?'—':fv(x.u,x.v)}</td><td><span class="m ${x.st}">${lab[x.st]}</span></td></tr>`).join('')}</tbody></table></div>`:''}<div class="docs"><span>Spec sheet</span><span${r.d.ga?'':' class="x"'}>Test certificate</span><span>Supplier datasheet</span></div></div>`).join('');}
+$('q').addEventListener('input',()=>{words=parse();run()});
+for(const f of F)$(f[5]).addEventListener('input',run);
+for(const id of ['fc','ex','ga'])$(id).addEventListener('change',run);
+$('clr').addEventListener('click',()=>{$('q').value='';words=parse();$('fc').value='';$('ex').checked=false;$('ga').checked=false;run();$('q').focus()});
+const egs=['size 8 safety boot R650 10 days','composite toe safety shoe size 6 R550','gumboot size 10 200 pairs','size 9 R700 7 days 650g'];let ei=0;
+$('eg').addEventListener('click',()=>{ei=(ei+1)%egs.length;$('q').value=egs[ei];words=parse();run()});
+run();
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+{
+const $=id=>document.getElementById(id);
+/* ---------- Stamp & sign ---------- */
+$('sd').value=new Date().toISOString().slice(0,10);
+const pad=$('pad'),pc=pad.getContext('2d');let drawing=false,signed=false;
+pc.lineWidth=4;pc.lineCap='round';pc.lineJoin='round';pc.strokeStyle='#0f2a4a';
+const pt=e=>{const r=pad.getBoundingClientRect();return[(e.clientX-r.left)*pad.width/r.width,(e.clientY-r.top)*pad.height/r.height]};
+pad.addEventListener('pointerdown',e=>{drawing=true;pad.setPointerCapture(e.pointerId);const[x,y]=pt(e);pc.beginPath();pc.moveTo(x,y)});
+pad.addEventListener('pointermove',e=>{if(!drawing)return;const[x,y]=pt(e);pc.lineTo(x,y);pc.stroke();signed=true});
+const endDraw=()=>{if(drawing){drawing=false;preview()}};
+pad.addEventListener('pointerup',endDraw);pad.addEventListener('pointercancel',endDraw);
+$('sclr').onclick=()=>{pc.clearRect(0,0,pad.width,pad.height);signed=false;preview()};
+const lines=()=>[$('sc').value.trim()||'Company',$('sp').value.trim(),$('ss').value,'Date: '+($('sd').value||'')].filter(Boolean);
+const scaleFor=(w,h)=>{const v=$('sz').value;return v==='auto'?Math.min(1.6,Math.max(.8,Math.max(w,h)/842)):Number(v)};
+/* one layout, used for the preview canvas and the PDF: box in points from the bottom-right corner */
+function layout(pw,ph){const k=scaleFor(pw,ph),bw=190*k,bh=96*k,m=28;return{k,x:pw-bw-m,y:m,w:bw,h:bh}}
+function preview(){const c=$('pv'),x=c.getContext('2d'),W=c.width,H=c.height;
+ /* close-up of the bottom-right corner of an A4 landscape page, so the stamp is readable */
+ const pw=842,ph=595,vw=pw*.5,s=W/vw,X=v=>(v-(pw-vw))*s,Y=v=>H-v*s;
+ x.fillStyle='#fff';x.fillRect(0,0,W,H);x.strokeStyle='#d1d9e6';x.lineWidth=1;
+ for(let v=pw-vw;v<pw;v+=30){x.beginPath();x.moveTo(X(Math.ceil(v/30)*30),0);x.lineTo(X(Math.ceil(v/30)*30),H);x.stroke()}
+ x.strokeStyle='#4b6a92';x.lineWidth=2*s/2;x.beginPath();x.moveTo(0,Y(20));x.lineTo(X(pw-20),Y(20));x.lineTo(X(pw-20),0);x.stroke();
+ x.fillStyle='#4b6a92';x.font='600 '+(11*s)+'px Manrope,sans-serif';x.fillText('Close-up: bottom-right corner of DEMO drawing 01',12*s,18*s);
+ const L=layout(pw,ph),bx=X(L.x),by=Y(L.y+L.h),bw=L.w*s,bh=L.h*s;
+ x.fillStyle='#fff';x.fillRect(bx,by,bw,bh);x.strokeStyle='#0f2a4a';x.lineWidth=1.2*s;x.strokeRect(bx,by,bw,bh);
+ const fs=9*L.k*s;x.fillStyle='#0f2a4a';lines().forEach((t,i)=>{x.font=(i?'500 ':'700 ')+fs+'px Helvetica,Arial,sans-serif';x.fillText(t,bx+6*s,by+(14+i*12)*L.k*s,bw-12*s)});
+ x.font='500 '+fs+'px Helvetica,Arial,sans-serif';x.fillText('Signed:',bx+6*s,by+bh-8*s);
+ if(signed){const w=bw-50*L.k*s;x.drawImage(pad,bx+42*L.k*s,by+bh-4*s-w/4,w,w/4)}}
+['sc','sp','sd','ss','sz'].forEach(id=>$(id).addEventListener('input',preview));
+async function stampDoc(doc){const {StandardFonts,rgb}=PDFLib;const f=await doc.embedFont(StandardFonts.Helvetica),fb=await doc.embedFont(StandardFonts.HelveticaBold);
+ const sig=signed?await doc.embedPng(pad.toDataURL('image/png')):null;const pages=doc.getPages(),g=$('sg').value;
+ const targets=g==='all'?pages:g==='last'?[pages[pages.length-1]]:[pages[0]];
+ for(const p of targets){const {width:pw,height:ph}=p.getSize(),L=layout(pw,ph),fs=9*L.k;
+  p.drawRectangle({x:L.x,y:L.y,width:L.w,height:L.h,color:rgb(1,1,1),borderColor:rgb(.06,.16,.29),borderWidth:1.2});
+  lines().forEach((t,i)=>p.drawText(t,{x:L.x+6,y:L.y+L.h-(14+i*12)*L.k,size:fs,font:i?f:fb,color:rgb(.06,.16,.29),maxWidth:L.w-12}));
+  p.drawText('Signed:',{x:L.x+6,y:L.y+8,size:fs,font:f,color:rgb(.06,.16,.29)});
+  if(sig){const w=L.w-50*L.k;p.drawImage(sig,{x:L.x+42*L.k,y:L.y+4,width:w,height:w/4})}}
+ return doc.save();}
+async function sample(n,size){const {PDFDocument,StandardFonts,rgb}=PDFLib;const d=await PDFDocument.create(),f=await d.embedFont(StandardFonts.Helvetica);
+ const p=d.addPage(size),{width:w,height:h}=p.getSize();for(let i=30;i<w;i+=30)p.drawLine({start:{x:i,y:0},end:{x:i,y:h},thickness:.4,color:rgb(.82,.85,.9)});
+ p.drawRectangle({x:20,y:20,width:w-40,height:h-40,borderColor:rgb(.3,.42,.57),borderWidth:1.5});
+ p.drawText('Example Manufacturing Group · DEMO drawing '+n,{x:40,y:h-50,size:16,font:f,color:rgb(.06,.16,.29)});
+ p.drawText('Synthetic document generated for the portfolio demo.',{x:40,y:h-72,size:10,font:f,color:rgb(.3,.42,.57)});return d;}
+let dlCap;const getDl=async()=>{if(dlCap===undefined){try{dlCap=window.claude&&claude.use?await claude.use('downloads'):null}catch(e){dlCap=null}}return dlCap};
+/* published page: the viewer's save prompt; local file: a normal browser download */
+async function download(blob,name){const d=await getDl();
+ if(d){try{await d.save({filename:name,data:blob});return 'saved'}catch(e){return e&&e.code==='declined'?'declined':'failed'}}
+ if(window.claude){return 'failed'}
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);return 'saved'}
+async function runBatch(docs){const msg=$('ssum');if(!window.PDFLib||!window.JSZip){msg.textContent='The PDF libraries did not load. Check the connection and try again.';return}
+ msg.textContent='Stamping '+docs.length+' document'+(docs.length>1?'s':'')+'…';const zip=new JSZip();
+ try{for(const [name,doc] of docs)zip.file(name.replace(/\.pdf$/i,'')+'_stamped.pdf',await stampDoc(await doc()));
+  const done=docs.length+' document'+(docs.length>1?'s':'')+' stamped'+(signed?' and signed':' (no signature drawn)');
+  msg.textContent=done+'. Confirm the save to get your ZIP.';
+  const r=await download(await zip.generateAsync({type:'blob'}),'stamped_documents.zip');
+  msg.textContent=r==='saved'?done+'. Your ZIP has been saved.':r==='declined'?done+'. You chose not to save the ZIP.':done+', but saving files is not available in this view.';}
+ catch(e){msg.textContent='Could not stamp one of the files. It may be protected or damaged.'}}
+$('srun').onclick=()=>runBatch([['DEMO-01_A3.pdf',()=>sample('01',[1190.55,841.89])],['DEMO-02_A4.pdf',()=>sample('02',[595.28,841.89])],['DEMO-03_A4-landscape.pdf',()=>sample('03',[841.89,595.28])]]);
+$('sfile').onchange=e=>{const fs=[...e.target.files];if(!fs.length)return;runBatch(fs.map(f=>[f.name,async()=>PDFLib.PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true})]));e.target.value=''};
+preview();document.fonts&&document.fonts.ready.then(preview);
+
+/* ---------- Encrypted dossier ---------- */
+const ENC={"s":"X6t9QaQ41KmkybclYRLV7Q==","i":"VLt2tktI4FyGQCvl","c":"eB3ojjy7sxKeBI3WOlfu/jEHgwMrftt1S0+q6vrc83ufBLg/vWT0zCDpR+XHAWjd9y1e0IipdZ6pgFOxpdCMMBLVTYqpUv/2WUaMt74u+BmEvAV4Hq2SRSv8JEvibmt//Yif/wNQHBaF+53f4Om/3j7AkqLvRH/0fcYfCNzJtpF6IMO4zqgchYmqDDCyZ+uu0hTG7BrunlfrjtD9zcIR++Jdph3Ko/baO9aWXEiSlkjYDPE6a1QPiRZoe9MmMadD1I25uJFYBwsRgAjglS8x/nidEhqaYrPaVyR0RZTg/Pcyc91FCe5aybwWWbwbxrCsBW3yjVAtYRsGjgUoAZx7iKjIKoZG3yiIRzOGHLgljmNL5OSqJOLszxbDgQjhEEoC7zPxxXU6trnYNQiLHLtibc1rmGinHCWMlrSSIFFoHKg88wxwBNdXEVwj6aL0pkx77NDtQ8XoidRRrmxZIrmjbucbl8JEwT0cq1fJ0JIzLTRXiggz+ga91+gFCwhb+eiaYjYg9kzUNMRlCB4ytA=="};
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+$('dgo').onclick=async()=>{const out=$('dout'),code=$('dc').value.trim().toUpperCase();
+ if(code.length!==6){out.textContent='Codes have six characters.';return}
+ if(!(window.crypto&&crypto.subtle)){out.textContent='This page needs a secure (https) connection to open a dossier.';return}
+ try{const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(ENC.s),iterations:150000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  const d=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(ENC.i)},key,b64(ENC.c))));
+  out.innerHTML='';const box=document.createElement('div');box.className='dos';
+  for(const [tag,txt] of [['b',d.who],['p','Your secret: '+d.secret],['p','Your goal: '+d.goal],['p',d.note]]){const el=document.createElement(tag);el.textContent=txt;box.appendChild(el)}
+  box.lastChild.style.cssText='color:var(--mute);font-size:13px';out.appendChild(box);}
+ catch(e){out.textContent='That code does not open this dossier. The text stays encrypted.'}};
+$('dc').addEventListener('keydown',e=>{if(e.key==='Enter')$('dgo').click()});
+
+/* ---------- Ballot and host tally ---------- */
+const CAST=['Augustus Harrow','June Lovell','Theo Banks','Peg Doyle','Victor Sable','Cornelia Harrow','Sergeant Frank Malloy','Roz Pike','Professor Emil Strand','Alderman Wallace Pruitt','Lillian Quill','Hazel Fairweather','Billy Finch','Dr Ambrose Kettle','Countess Vera Orlov'];
+const GUESTS=CAST.slice(1),SUS=CAST.slice(1);
+const METH=['Slipped out unseen while everyone watched the singer','Used a gramophone record to fake a live performance','Used the switchboard to fake a telephone alibi','Hid in the transmitter room before the speech','Bribed the police to look the other way'];
+const MOT=['To inherit the station','To avoid paying a debt','To hide a stolen patent','To stop the truth about stolen songs coming out','To keep a spy from being named','To bury a charity scandal'];
+const fill=(id,arr,ph)=>{$(id).replaceChildren(new Option(ph,''),...arr.map(v=>new Option(v,v)))};
+fill('bv',GUESTS,'Choose your character');fill('bs',SUS,'Choose a suspect');fill('bm',METH,'Choose the method');fill('bw',MOT,'Choose the motive');
+let votes={};
+function tally(){const n=Object.keys(votes).length,c={};SUS.forEach(s=>c[s]=0);Object.values(votes).forEach(v=>c[v.s]++);
+ const rows=Object.entries(c).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])),top=rows[0]?rows[0][1]:0;
+ $('bstat').innerHTML='<b>'+n+'</b> of '+GUESTS.length+' guests have voted.'+(top?' Leading: '+rows.filter(r=>r[1]===top).map(r=>r[0]).join(' and ')+(rows.filter(r=>r[1]===top).length>1?' (tie)':''):'');
+ $('bars').replaceChildren(...rows.map(([k,v])=>{const d=document.createElement('div');d.className='brow'+(v===top?' lead':'');
+  d.innerHTML='<span></span><div class="t"><i></i></div><b></b>';d.children[0].textContent=k;d.querySelector('i').style.width=(v/top*100)+'%';d.children[2].textContent=v;return d}));
+ const miss=GUESTS.filter(g=>!votes[g]);$('bmiss').textContent=miss.length?'Still to vote: '+miss.join(', '):'Everyone has voted.';}
+$('bgo').onclick=()=>{const v=$('bv').value,s=$('bs').value,m=$('bm').value,w=$('bw').value,msg=$('bmsg');
+ if(!v||!s||!m||!w){msg.textContent='Choose all four before locking in.';return}
+ if(v===s){msg.textContent='You cannot accuse yourself. Choose another suspect.';return}
+ votes[v]={s,m,w};msg.textContent='Vote locked in for '+v+'. Open the Host tally tab to see it arrive.';['bv','bs','bm','bw'].forEach(id=>$(id).value='');tally()};
+$('bsim').onclick=()=>{const free=GUESTS.filter(g=>!votes[g]);for(let i=0;i<10&&free.length;i++){const g=free.splice(Math.floor(Math.random()*free.length),1)[0];
+ const pool=SUS.filter(x=>x!==g),s=pool[Math.floor(Math.random()*pool.length)];
+ votes[g]={s,m:METH[i%METH.length],w:MOT[i%MOT.length]}}tally()};
+$('bclr').onclick=()=>{votes={};tally()};
+const tab=g=>{$('tg').setAttribute('aria-selected',g);$('th').setAttribute('aria-selected',!g);$('pg').hidden=!g;$('ph').hidden=g};
+$('tg').onclick=()=>tab(true);$('th').onclick=()=>tab(false);tally();
+}
+</script>
+
+</body></html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Key Account Workspace Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: a working desk. Navy top bar with tabs, summary tiles first, then lists an account manager acts on. One column on phones. */
+:root{
+ --bg:#ffffff;--sur:#f1f4f8;--ink:#0f1b2d;--mute:#4d5b6e;--line:#d7dee8;
+ --navy:#0f2a4a;--slate:#4b6a92;--acc:#1f5eff;--accbg:#e6eeff;
+ --red:#b4232f;--redbg:#fbe7e9;--amb:#9a5b00;--ambbg:#fdf0dc;--grn:#1d7a46;--grnbg:#e3f4ea;
+ --font:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
+ color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0b1424;--sur:#111d31;--ink:#e6edf7;--mute:#9fb0c6;--line:#243350;
+ --navy:#0a1d36;--slate:#8fa8c8;--acc:#7aa2ff;--accbg:#18284a;
+ --red:#ff8f99;--redbg:#3a1a20;--amb:#f2b766;--ambbg:#3a2a12;--grn:#7fd3a0;--grnbg:#14301f;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#0b1424;--sur:#111d31;--ink:#e6edf7;--mute:#9fb0c6;--line:#243350;
+ --navy:#0a1d36;--slate:#8fa8c8;--acc:#7aa2ff;--accbg:#18284a;
+ --red:#ff8f99;--redbg:#3a1a20;--amb:#f2b766;--ambbg:#3a2a12;--grn:#7fd3a0;--grnbg:#14301f;color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font)}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--navy);color:#fff}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding-block:14px}
+.brand b{display:block;font-size:18px;font-weight:800;letter-spacing:-.01em}
+.brand small{color:#c9d6e8;font-size:12px}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;margin-left:auto}
+nav.tabs button{background:transparent;color:#c9d6e8;border:0;border-bottom:3px solid transparent;border-radius:0;padding:10px 12px;font:700 14px var(--font);min-height:44px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:#7aa2ff}
+.banner{background:var(--accbg);color:var(--ink);font-size:13px}
+.banner .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding-block:8px}
+main .wrap{padding-block:20px 48px}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+h2{font-size:20px}h3{font-size:16px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5em,1fr));gap:10px;margin-bottom:20px}
+.tile{background:var(--sur);border-radius:8px;padding:12px 14px}
+.tile b{display:block;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.tile span{font-size:13px;color:var(--mute)}
+.tile.alert b{color:var(--red)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.panel>h3{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.panel>h3 small{font-weight:600;color:var(--mute);font-size:12px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li>div{flex:1}
+.list small{display:block;color:var(--mute);font-size:13px}
+.empty{padding:14px;color:var(--mute);font-size:14px}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;background:var(--sur);color:var(--slate)}
+.pill.red{background:var(--redbg);color:var(--red)}.pill.amb{background:var(--ambbg);color:var(--amb)}.pill.grn{background:var(--grnbg);color:var(--grn)}.pill.acc{background:var(--accbg);color:var(--acc)}
+button{font:600 14px var(--font);border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:8px 12px;min-height:40px;cursor:pointer}
+button:hover{border-color:var(--slate)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button.sm{min-height:34px;padding:4px 10px;font-size:13px}
+.rbar{height:6px;background:var(--sur);border-radius:3px;overflow:hidden;margin-top:4px;max-width:180px}
+.rbar i{display:block;height:100%;background:var(--grn)}
+.rbar.amb i{background:var(--amb)}.rbar.red i{background:var(--red)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--mute);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--sur)}
+tr.sel td{background:var(--accbg)}
+.split{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:960px){.split{grid-template-columns:1fr}}
+.detail{padding:14px;display:grid;gap:14px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.kv dt{color:var(--mute)}.kv dd{margin:0}
+form.row{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+label.f{display:grid;gap:3px;font-size:12px;color:var(--mute);font-weight:600;flex:1 1 140px}
+input,select,textarea{font:500 14px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;min-height:40px;width:100%}
+textarea{min-height:90px;resize:vertical}
+.board{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:12px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--sur);border-radius:10px;padding:10px;display:grid;gap:8px;align-content:start}
+.col h3{font-size:14px;display:flex;justify-content:space-between}
+.col .sum{font-size:12px;color:var(--mute)}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:6px;font-size:14px}
+.card b{font-size:14px}
+.card .meta{display:flex;justify-content:space-between;gap:8px;color:var(--mute);font-size:13px;font-variant-numeric:tabular-nums}
+.closed{margin-top:14px}
+.qlines td input{min-height:36px}
+.totals{display:grid;grid-template-columns:1fr auto;gap:4px 16px;justify-content:end;max-width:320px;margin-left:auto;font-variant-numeric:tabular-nums;font-size:14px}
+.totals b{font-size:16px}
+.overlay{position:fixed;inset:0;background:rgba(10,20,36,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal{background:var(--bg);color:var(--ink);border-radius:12px;max-width:560px;width:100%;max-height:90vh;overflow:auto;padding:18px;display:grid;gap:12px}
+.modal pre{white-space:pre-wrap;font:500 14px/1.55 var(--font);background:var(--sur);border-radius:8px;padding:12px;margin:0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px;font-weight:600;font-size:14px;z-index:30}
+.foot{color:var(--mute);font-size:12px;margin-top:24px}
+a{color:var(--acc)}
+@media(prefers-reduced-motion:no-preference){.card,.list li{transition:background .15s}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><b>Key Account Workspace</b><small>Example Manufacturing Group · demo</small></div>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button role="tab" data-v="today" aria-selected="true">Today</button>
+    <button role="tab" data-v="accounts" aria-selected="false">Accounts</button>
+    <button role="tab" data-v="pipeline" aria-selected="false">Pipeline</button>
+    <button role="tab" data-v="quotes" aria-selected="false">Quotes</button>
+  </nav>
+</div></header>
+<div class="banner"><div class="wrap">
+  <span>Working demo with fictional accounts and synthetic figures. Changes stay in this browser only.</span>
+  <span><button class="sm" id="reset" type="button">Reset demo data</button> <a href="index.html">Back to portfolio</a></span>
+</div></div>
+<main><div class="wrap">
+  <section id="v-today"></section>
+  <section id="v-accounts" hidden></section>
+  <section id="v-pipeline" hidden></section>
+  <section id="v-quotes" hidden></section>
+  <p class="foot">Demo of a CRM I designed and use daily, rebuilt here with invented data. The real tool also connects to email and document storage and turns meeting notes into records with AI; those parts are not included in this demo.</p>
+</div></main>
+<div id="ov" class="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt"></h3><div id="mb"></div><div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap" id="mf"></div></div></div>
+<div id="toast" class="toast" hidden role="status"></div>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const DAY=864e5,today=new Date();today.setHours(0,0,0,0);
+const ago=n=>new Date(today-n*DAY).toISOString().slice(0,10),ahead=n=>ago(-n);
+const days=d=>Math.round((today-new Date(d+'T00:00:00'))/DAY);
+const R=v=>'R'+Math.round(v).toLocaleString('en-ZA').replace(/,/g,' ');
+const Rk=v=>v>=1e6?'R'+(v/1e6).toFixed(1)+'m':v>=1e3?'R'+Math.round(v/1e3)+'k':R(v);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const STAGES=[['lead','Lead',10],['qualified','Qualified',25],['proposal','Proposal / quoted',50],['negotiation','Negotiation',75],['won','Won',100],['lost','Lost',0]];
+const OPEN=['lead','qualified','proposal','negotiation'],SP=Object.fromEntries(STAGES.map(s=>[s[0],s[2]])),SN=Object.fromEntries(STAGES.map(s=>[s[0],s[1]]));
+const VAT=.15,KEY='emg-crm-demo-v1';
+function seed(){return{
+ accounts:[
+  {id:'C001',name:'Retail Group A',country:'South Africa',segment:'Retail',health:'Good',rhythm:21,last:ago(9),renewal:ahead(140),handover:false},
+  {id:'C002',name:'Distributor B',country:'Namibia',segment:'Distribution',health:'Good',rhythm:30,last:ago(16),renewal:ahead(60),handover:true},
+  {id:'C003',name:'Mining Supplies C',country:'Botswana',segment:'Industrial',health:'Watch',rhythm:30,last:ago(24),renewal:ahead(210),handover:false},
+  {id:'C004',name:'Distributor D',country:'South Africa',segment:'Distribution',health:'At risk',rhythm:30,last:ago(41),renewal:ahead(35),handover:true},
+  {id:'C005',name:'Facilities Group E',country:'Zambia',segment:'Facilities',health:'Good',rhythm:45,last:ago(12),renewal:ahead(300),handover:false},
+  {id:'C006',name:'Logistics Park F',country:'South Africa',segment:'Logistics',health:'Watch',rhythm:14,last:ago(13),renewal:ahead(80),handover:false},
+  {id:'C007',name:'Construction Co G',country:'Mozambique',segment:'Construction',health:'Good',rhythm:30,last:ago(5),renewal:ahead(190),handover:true},
+  {id:'C008',name:'Hospital Group H',country:'Eswatini',segment:'Facilities',health:'Good',rhythm:60,last:ago(30),renewal:ahead(400),handover:false}],
+ contacts:[
+  {acc:'C001',name:'T. Mokoena',role:'Decision-maker',email:'t.mokoena@example.com'},{acc:'C001',name:'L. Smit',role:'Buyer',email:'l.smit@example.com'},
+  {acc:'C002',name:'A. Nangolo',role:'Decision-maker',email:'a.nangolo@example.com'},
+  {acc:'C003',name:'K. Seretse',role:'Technical',email:'k.seretse@example.com'},{acc:'C003',name:'P. Molefe',role:'Buyer',email:'p.molefe@example.com'},
+  {acc:'C004',name:'J. van Wyk',role:'Decision-maker',email:'j.vanwyk@example.com'},
+  {acc:'C005',name:'M. Banda',role:'Buyer',email:'m.banda@example.com'},
+  {acc:'C006',name:'S. Naidoo',role:'Operations',email:'s.naidoo@example.com'},
+  {acc:'C007',name:'R. Cossa',role:'Decision-maker',email:'r.cossa@example.com'},
+  {acc:'C008',name:'N. Dlamini',role:'Buyer',email:'n.dlamini@example.com'}],
+ activities:[
+  {acc:'C001',date:ago(9),type:'Meeting',note:'Quarterly review. Wants lead times on storage frames confirmed.'},
+  {acc:'C002',date:ago(16),type:'Email',note:'Sent revised quote DQ-0131.'},
+  {acc:'C003',date:ago(24),type:'Call',note:'Budget under review until month end.'},
+  {acc:'C004',date:ago(41),type:'Email',note:'Handover introduction sent. No reply yet.'},
+  {acc:'C006',date:ago(13),type:'Site visit',note:'Measured two new bays for racking.'},
+  {acc:'C007',date:ago(5),type:'Call',note:'Asked for a lead-time reminder on the frame order.'}],
+ followups:[
+  {id:1,acc:'C004',due:ago(6),text:'Call J. van Wyk to re-introduce the account team',done:false},
+  {id:2,acc:'C002',due:ago(2),text:'Chase decision on DQ-0131',done:false},
+  {id:3,acc:'C007',due:ago(0),text:'Send lead-time reminder',done:false},
+  {id:4,acc:'C001',due:ahead(3),text:'Confirm lead times for storage frames',done:false},
+  {id:5,acc:'C006',due:ahead(6),text:'Send racking layout options',done:false}],
+ opps:[
+  {id:'O1',acc:'C001',title:'Storage frames, 3 stores',stage:'proposal',value:420000},
+  {id:'O2',acc:'C002',title:'Warehouse racking phase 2',stage:'negotiation',value:685000},
+  {id:'O3',acc:'C003',title:'Safety footwear contract',stage:'qualified',value:240000},
+  {id:'O4',acc:'C006',title:'Two new racking bays',stage:'lead',value:310000},
+  {id:'O5',acc:'C007',title:'Site storage containers',stage:'proposal',value:195000},
+  {id:'O6',acc:'C005',title:'Generator service kits',stage:'lead',value:88000},
+  {id:'O7',acc:'C008',title:'Linen trolleys',stage:'won',value:126000},
+  {id:'O8',acc:'C004',title:'Mezzanine floor',stage:'qualified',value:540000}],
+ quotes:[
+  {no:'DQ-0131',acc:'C002',date:ago(16),status:'sent',discount:5,lines:[{item:'Pallet rack upright frame 3.6 m',qty:40,price:2850},{item:'Beam pair 2.7 m',qty:120,price:1240},{item:'Installation, per bay',qty:20,price:4200}]},
+  {no:'DQ-0136',acc:'C001',date:ago(10),status:'sent',discount:0,lines:[{item:'Storage frame DEMO-RF-200',qty:18,price:6900},{item:'Delivery',qty:3,price:3500}]},
+  {no:'DQ-0139',acc:'C007',date:ago(4),status:'sent',discount:0,lines:[{item:'Site container 6 m',qty:4,price:42000}]},
+  {no:'DQ-0127',acc:'C008',date:ago(35),status:'accepted',discount:2,lines:[{item:'Linen trolley',qty:60,price:2050}]},
+  {no:'DQ-0141',acc:'C006',date:ago(1),status:'draft',discount:0,lines:[{item:'Racking bay, complete',qty:2,price:58500}]}],
+ nextFu:6,nextOpp:9,nextQ:142}}
+let S;try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+if(!S||!S.accounts)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const acc=id=>S.accounts.find(a=>a.id===id)||{name:'Unknown',id};
+const an=id=>{const a=acc(id);return a.id+' · '+a.name};
+const rhythmPct=a=>days(a.last)/a.rhythm;
+const rstate=p=>p>=1?'red':p>=.7?'amb':'grn';
+const prob=o=>o.prob!=null?o.prob:SP[o.stage];
+const qTotals=q=>{const sub=q.lines.reduce((s,l)=>s+(Number(l.qty)||0)*(Number(l.price)||0),0),disc=sub*(Number(q.discount)||0)/100,net=sub-disc,vat=net*VAT;return{sub,disc,net,vat,total:net+vat}};
+function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2400)}
+function modal(title,bodyHTML,buttons){$('mt').textContent=title;$('mb').innerHTML=bodyHTML;const f=$('mf');f.replaceChildren();
+ (buttons||[]).concat([['Close',null]]).forEach(([t,fn,cls])=>{const b=document.createElement('button');b.type='button';b.textContent=t;if(cls)b.className=cls;b.onclick=async()=>{if(fn&&await fn()===false)return;$('ov').hidden=true};f.appendChild(b)});
+ $('ov').hidden=false;f.lastChild.focus()}
+$('ov').addEventListener('click',e=>{if(e.target.id==='ov')$('ov').hidden=true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('ov').hidden=true});
+function draftUpdate(id){const a=acc(id),c=S.contacts.find(x=>x.acc===id&&x.role==='Decision-maker')||S.contacts.find(x=>x.acc===id)||{name:'there',email:''};
+ const qs=S.quotes.filter(q=>q.acc===id&&q.status==='sent'),op=S.opps.filter(o=>o.acc===id&&OPEN.includes(o.stage));
+ const txt='To: '+c.email+'\nSubject: '+a.name+': quick update from Example Manufacturing Group\n\nDear '+c.name+',\n\nI hope all is well. A short update on where things stand:\n'+
+  (qs.length?qs.map(q=>'• Quote '+q.no+' ('+R(qTotals(q).total)+' incl. VAT), sent '+days(q.date)+' days ago. Is there anything you need from us to decide?').join('\n')+'\n':'')+
+  (op.length?op.map(o=>'• '+o.title+': happy to set up a call to take this forward.').join('\n')+'\n':'')+
+  '\nPlease let me know a convenient time to talk this week.\n\nKind regards\nKey Account Manager, Example Manufacturing Group';
+ modal('Client update draft · '+a.name,'<pre id="dtxt">'+esc(txt)+'</pre><p style="font-size:13px;color:var(--mute);margin:0">In the real tool this opens as a draft in Gmail. Here you can copy it.</p>',
+  [['Copy text',async()=>{try{await navigator.clipboard.writeText(txt);toast('Draft copied')}catch(e){const r=document.createRange();r.selectNodeContents($('dtxt'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Text selected. Copy it with your keyboard.')}return false},'pri'],
+   ['Log as contacted today',()=>{a.last=ago(0);S.activities.unshift({acc:id,date:ago(0),type:'Email',note:'Client update sent.'});save();render();toast('Logged against '+a.name)}]])}
+/* ---------- Today ---------- */
+function vToday(){const fu=S.followups.filter(f=>!f.done).sort((a,b)=>a.due.localeCompare(b.due));
+ const overdue=fu.filter(f=>days(f.due)>0),openOpps=S.opps.filter(o=>OPEN.includes(o.stage));
+ const pipe=openOpps.reduce((s,o)=>s+o.value,0),wt=openOpps.reduce((s,o)=>s+o.value*prob(o)/100,0);
+ const waiting=S.quotes.filter(q=>q.status==='sent').sort((a,b)=>a.date.localeCompare(b.date));
+ const quiet=S.accounts.map(a=>({a,p:rhythmPct(a)})).filter(x=>x.p>=.7).sort((x,y)=>y.p-x.p);
+ const ren=S.accounts.filter(a=>{const d=-days(a.renewal);return d>=0&&d<=90}).sort((x,y)=>x.renewal.localeCompare(y.renewal));
+ const dl=today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+ $('v-today').innerHTML=`<h2 style="margin-bottom:12px">Today · ${dl}</h2>
+ <div class="tiles"><div class="tile ${overdue.length?'alert':''}"><b>${overdue.length}</b><span>Overdue follow-ups</span></div><div class="tile"><b>${Rk(pipe)}</b><span>Open pipeline</span></div><div class="tile"><b>${Rk(wt)}</b><span>Weighted pipeline</span></div><div class="tile"><b>${waiting.length}</b><span>Quotes awaiting reply</span></div><div class="tile ${quiet.some(x=>x.p>=1)?'alert':''}"><b>${quiet.length}</b><span>Accounts going quiet</span></div></div>
+ <div class="grid2">
+  <div class="panel"><h3>Follow-ups <small>Due first</small></h3><ul class="list">${fu.length?fu.map(f=>{const d=days(f.due);const pl=d>0?`<span class="pill red">${d} day${d>1?'s':''} overdue</span>`:d===0?'<span class="pill amb">Due today</span>':`<span class="pill">In ${-d} day${d<-1?'s':''}</span>`;
+   return `<li><div><b>${esc(f.text)}</b><small>${esc(an(f.acc))}</small>${pl}</div><button class="sm" data-done="${f.id}" type="button">Done</button></li>`}).join(''):'<li class="empty">Nothing due. Well done.</li>'}</ul></div>
+  <div class="panel"><h3>Going quiet <small>Days since contact against each account's rhythm</small></h3><ul class="list">${quiet.length?quiet.map(({a,p})=>`<li><div><b>${esc(an(a.id))}</b><small>${days(a.last)} days since contact · rhythm ${a.rhythm} days</small><div class="rbar ${rstate(p)}"><i style="width:${Math.min(100,p*100)}%"></i></div></div><button class="sm" data-draft="${a.id}" type="button">Draft update</button></li>`).join(''):'<li class="empty">Every account is within its contact rhythm.</li>'}</ul></div>
+  <div class="panel"><h3>Quotes awaiting reply</h3><ul class="list">${waiting.length?waiting.map(q=>`<li><div><b>${q.no}</b> · ${esc(acc(q.acc).name)}<small>Sent ${days(q.date)} days ago${days(q.date)>14?' · chase now':''}</small></div><b style="white-space:nowrap;font-variant-numeric:tabular-nums">${R(qTotals(q).total)}</b></li>`).join(''):'<li class="empty">No quotes waiting.</li>'}</ul></div>
+  <div class="panel"><h3>Renewals in the next 90 days</h3><ul class="list">${ren.length?ren.map(a=>`<li><div><b>${esc(an(a.id))}</b><small>Renews ${new Date(a.renewal).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}${a.handover?' · handed-over account':''}</small></div><span class="pill ${-days(a.renewal)<=45?'amb':''}">${-days(a.renewal)} days</span></li>`).join(''):'<li class="empty">No renewals due soon.</li>'}</ul></div>
+ </div>`}
+/* ---------- Accounts ---------- */
+let selAcc='C004';
+function vAccounts(){const rows=S.accounts.map(a=>({a,p:rhythmPct(a)}));
+ const hp=h=>h==='Good'?'grn':h==='Watch'?'amb':'red';
+ const a=acc(selAcc);
+ const ct=S.contacts.filter(c=>c.acc===a.id),op=S.opps.filter(o=>o.acc===a.id),ac=S.activities.filter(x=>x.acc===a.id),fu=S.followups.filter(f=>f.acc===a.id&&!f.done);
+ $('v-accounts').innerHTML=`<div class="split">
+ <div class="panel"><h3>Accounts <small>Tap a row to open it</small></h3><div class="scroll"><table><thead><tr><th>Account</th><th>Health</th><th>Contact rhythm</th><th class="num">Open pipeline</th></tr></thead><tbody>
+ ${rows.map(({a:x,p})=>`<tr class="click ${x.id===selAcc?'sel':''}" data-acc="${x.id}" tabindex="0"><td><b>${esc(x.id)} · ${esc(x.name)}</b><br><small style="color:var(--mute)">${esc(x.country)} · ${esc(x.segment)}${x.handover?' · handover':''}</small></td><td><span class="pill ${hp(x.health)}">${x.health}</span></td><td>${days(x.last)} of ${x.rhythm} days<div class="rbar ${rstate(p)}"><i style="width:${Math.min(100,p*100)}%"></i></div></td><td class="num">${Rk(S.opps.filter(o=>o.acc===x.id&&OPEN.includes(o.stage)).reduce((s,o)=>s+o.value,0))}</td></tr>`).join('')}
+ </tbody></table></div></div>
+ <div class="panel"><h3>${esc(a.id)} · ${esc(a.name)} <button class="sm" data-draft="${a.id}" type="button">Draft update</button></h3><div class="detail">
+  <dl class="kv"><dt>Health</dt><dd><select id="ah" aria-label="Account health">${['Good','Watch','At risk'].map(h=>`<option ${h===a.health?'selected':''}>${h}</option>`).join('')}</select></dd><dt>Rhythm</dt><dd>Every ${a.rhythm} days · last contact ${days(a.last)} days ago</dd><dt>Renewal</dt><dd>${new Date(a.renewal).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</dd></dl>
+  <div><h3 style="margin-bottom:6px">Contacts</h3><ul class="list" style="border:1px solid var(--line);border-radius:8px">${ct.map(c=>`<li><div><b>${esc(c.name)}</b><small>${esc(c.email)}</small></div><span class="pill acc">${esc(c.role)}</span></li>`).join('')||'<li class="empty">No contacts yet.</li>'}</ul></div>
+  <div><h3 style="margin-bottom:6px">Open follow-ups</h3><ul class="list" style="border:1px solid var(--line);border-radius:8px">${fu.map(f=>`<li><div><b>${esc(f.text)}</b><small>Due ${f.due}</small></div><button class="sm" data-done="${f.id}" type="button">Done</button></li>`).join('')||'<li class="empty">None.</li>'}</ul>
+   <form class="row" id="fuf" style="margin-top:8px"><label class="f">New follow-up<input id="fut" required placeholder="What needs doing"></label><label class="f" style="flex:0 1 150px">Due<input id="fud" type="date" required value="${ahead(7)}"></label><button class="sm" type="submit">Add</button></form></div>
+  <div><h3 style="margin-bottom:6px">Log an activity</h3><form class="row" id="acf"><label class="f" style="flex:0 1 130px">Type<select id="act">${['Call','Email','Meeting','Site visit'].map(t=>`<option>${t}</option>`).join('')}</select></label><label class="f">What was discussed and agreed<input id="acn" required></label><button class="sm pri" type="submit">Log</button></form>
+   <ul class="list" style="margin-top:8px">${ac.map(x=>`<li><div><b>${x.type}</b> · ${x.date}<small>${esc(x.note)}</small></div></li>`).join('')||'<li class="empty">No activity logged.</li>'}</ul></div>
+  <div><h3 style="margin-bottom:6px">Opportunities</h3><ul class="list" style="border:1px solid var(--line);border-radius:8px">${op.map(o=>`<li><div><b>${esc(o.title)}</b><small>${SN[o.stage]} · ${prob(o)}%</small></div><b style="font-variant-numeric:tabular-nums">${R(o.value)}</b></li>`).join('')||'<li class="empty">None.</li>'}</ul></div>
+ </div></div></div>`;
+ $('ah').onchange=e=>{a.health=e.target.value;save();render();toast('Health updated')};
+ $('fuf').onsubmit=e=>{e.preventDefault();S.followups.push({id:S.nextFu++,acc:a.id,due:$('fud').value,text:$('fut').value.trim(),done:false});save();render();toast('Follow-up added')};
+ $('acf').onsubmit=e=>{e.preventDefault();S.activities.unshift({acc:a.id,date:ago(0),type:$('act').value,note:$('acn').value.trim()});a.last=ago(0);save();render();toast('Activity logged. Contact rhythm reset.')}}
+/* ---------- Pipeline ---------- */
+function vPipeline(){const open=S.opps.filter(o=>OPEN.includes(o.stage));
+ const tot=open.reduce((s,o)=>s+o.value,0),wt=open.reduce((s,o)=>s+o.value*prob(o)/100,0);
+ const card=o=>`<div class="card"><b>${esc(o.title)}</b><span style="font-size:13px;color:var(--mute)">${esc(an(o.acc))}</span><div class="meta"><span>${R(o.value)}</span><span>${prob(o)}% · ${Rk(o.value*prob(o)/100)}</span></div><select data-stage="${o.id}" aria-label="Move ${esc(o.title)} to stage">${STAGES.map(s=>`<option value="${s[0]}" ${s[0]===o.stage?'selected':''}>${s[1]}</option>`).join('')}</select></div>`;
+ $('v-pipeline').innerHTML=`<div class="tiles"><div class="tile"><b>${open.length}</b><span>Open opportunities</span></div><div class="tile"><b>${Rk(tot)}</b><span>Open pipeline</span></div><div class="tile"><b>${Rk(wt)}</b><span>Weighted by stage</span></div></div>
+ <p style="color:var(--mute);font-size:13px;margin:-8px 0 12px">Weighted value = value × stage probability (Lead 10%, Qualified 25%, Proposal 50%, Negotiation 75%). Move a card with its stage menu.</p>
+ <div class="board">${OPEN.map(st=>{const L=S.opps.filter(o=>o.stage===st);return `<div class="col"><h3><span>${SN[st]}</span><span class="pill">${SP[st]}%</span></h3><div class="sum">${L.length} · ${Rk(L.reduce((s,o)=>s+o.value,0))}</div>${L.map(card).join('')||'<div class="sum">Empty</div>'}</div>`}).join('')}</div>
+ <div class="panel closed"><h3>Closed</h3><ul class="list">${S.opps.filter(o=>!OPEN.includes(o.stage)).map(o=>`<li><div><b>${esc(o.title)}</b><small>${esc(an(o.acc))}</small></div><span class="pill ${o.stage==='won'?'grn':'red'}">${SN[o.stage]}</span><b style="font-variant-numeric:tabular-nums">${R(o.value)}</b></li>`).join('')||'<li class="empty">Nothing closed yet.</li>'}</ul></div>
+ <form class="row panel" id="opf" style="padding:12px;margin-top:14px"><label class="f">New opportunity<input id="opt" required placeholder="What the client may buy"></label><label class="f" style="flex:0 1 200px">Account<select id="opa">${S.accounts.map(a=>`<option value="${a.id}">${esc(an(a.id))}</option>`).join('')}</select></label><label class="f" style="flex:0 1 130px">Value (R)<input id="opv" type="number" min="0" step="1000" required value="100000"></label><button class="sm pri" type="submit">Add</button></form>`;
+ $('opf').onsubmit=e=>{e.preventDefault();S.opps.push({id:'O'+S.nextOpp++,acc:$('opa').value,title:$('opt').value.trim(),stage:'lead',value:Number($('opv').value)||0});save();render();toast('Added to Lead')}}
+/* ---------- Quotes ---------- */
+let selQ='DQ-0131';
+function vQuotes(){const q=S.quotes.find(x=>x.no===selQ)||S.quotes[0];selQ=q&&q.no;
+ const sp=s=>s==='accepted'?'grn':s==='sent'?'acc':s==='lost'?'red':'';
+ const t=q?qTotals(q):null,ro=q&&q.status!=='draft';
+ $('v-quotes').innerHTML=`<div class="split">
+ <div class="panel"><h3>Quotes <button class="sm pri" id="nq" type="button">New quote</button></h3><div class="scroll"><table><thead><tr><th>Number</th><th>Account</th><th>Status</th><th class="num">Total incl. VAT</th></tr></thead><tbody>
+ ${S.quotes.slice().sort((a,b)=>b.no.localeCompare(a.no)).map(x=>`<tr class="click ${x.no===selQ?'sel':''}" data-q="${x.no}" tabindex="0"><td><b>${x.no}</b><br><small style="color:var(--mute)">${x.date}</small></td><td>${esc(acc(x.acc).name)}</td><td><span class="pill ${sp(x.status)}">${x.status[0].toUpperCase()+x.status.slice(1)}</span></td><td class="num">${R(qTotals(x).total)}</td></tr>`).join('')}
+ </tbody></table></div></div>
+ ${q?`<div class="panel"><h3>${q.no} · ${esc(acc(q.acc).name)} <span class="pill ${sp(q.status)}">${q.status}</span></h3><div class="detail">
+  ${ro?'':`<label class="f">Account<select id="qa">${S.accounts.map(a=>`<option value="${a.id}" ${a.id===q.acc?'selected':''}>${esc(an(a.id))}</option>`).join('')}</select></label>`}
+  <div class="scroll"><table class="qlines"><thead><tr><th>Item</th><th class="num">Qty</th><th class="num">Unit price (R)</th><th class="num">Line</th>${ro?'':'<th></th>'}</tr></thead><tbody>
+  ${q.lines.map((l,i)=>ro?`<tr><td>${esc(l.item)}</td><td class="num">${l.qty}</td><td class="num">${R(l.price)}</td><td class="num">${R(l.qty*l.price)}</td></tr>`:`<tr><td><input data-li="${i}" data-k="item" value="${esc(l.item)}" aria-label="Item"></td><td class="num"><input data-li="${i}" data-k="qty" type="number" min="0" value="${l.qty}" style="width:70px" aria-label="Quantity"></td><td class="num"><input data-li="${i}" data-k="price" type="number" min="0" value="${l.price}" style="width:110px" aria-label="Unit price"></td><td class="num">${R(l.qty*l.price)}</td><td><button class="sm" data-del="${i}" type="button" aria-label="Remove line">×</button></td></tr>`).join('')}
+  </tbody></table></div>
+  ${ro?'':'<div><button class="sm" id="al" type="button">Add line</button></div>'}
+  <div class="totals"><span>Subtotal</span><span>${R(t.sub)}</span><span>Discount ${ro?q.discount+'%':`<input id="qd" type="number" min="0" max="50" value="${q.discount}" style="width:64px;min-height:30px;padding:2px 6px" aria-label="Discount percent">%`}</span><span>− ${R(t.disc)}</span><span>VAT 15%</span><span>${R(t.vat)}</span><b>Total</b><b>${R(t.total)}</b></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">${q.status==='draft'?'<button class="pri" data-st="sent" type="button">Mark as sent</button>':q.status==='sent'?'<button data-st="lost" type="button">Mark lost</button><button class="pri" data-st="accepted" type="button">Mark accepted</button>':''}</div>
+ </div></div>`:''}</div>`;
+ $('nq').onclick=()=>{const no='DQ-0'+S.nextQ++;S.quotes.push({no,acc:'C001',date:ago(0),status:'draft',discount:0,lines:[{item:'New item',qty:1,price:1000}]});selQ=no;save();render()};
+ if(!q)return;
+ const qa=$('qa');if(qa)qa.onchange=e=>{q.acc=e.target.value;save();render()};
+ const al=$('al');if(al)al.onclick=()=>{q.lines.push({item:'New item',qty:1,price:0});save();render()};
+ const qd=$('qd');if(qd)qd.onchange=e=>{q.discount=Math.max(0,Math.min(50,Number(e.target.value)||0));save();render()};
+ document.querySelectorAll('#v-quotes [data-li]').forEach(inp=>inp.onchange=e=>{const l=q.lines[+inp.dataset.li],k=inp.dataset.k;l[k]=k==='item'?e.target.value:Math.max(0,Number(e.target.value)||0);save();render()});
+ document.querySelectorAll('#v-quotes [data-del]').forEach(b=>b.onclick=()=>{q.lines.splice(+b.dataset.del,1);save();render()});
+ document.querySelectorAll('#v-quotes [data-st]').forEach(b=>b.onclick=()=>{q.status=b.dataset.st;if(q.status==='sent')q.date=ago(0);save();render();toast(q.no+' marked '+q.status)})}
+/* ---------- wiring ---------- */
+let view='today';
+function render(){({today:vToday,accounts:vAccounts,pipeline:vPipeline,quotes:vQuotes})[view]()}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-done],[data-draft],[data-acc],[data-q]');if(!t)return;
+ if(t.dataset.done){const f=S.followups.find(x=>x.id==t.dataset.done);if(f){f.done=true;save();render();toast('Follow-up done')}}
+ else if(t.dataset.draft)draftUpdate(t.dataset.draft);
+ else if(t.dataset.acc){selAcc=t.dataset.acc;render()}
+ else if(t.dataset.q){selQ=t.dataset.q;render()}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('tr[data-acc],tr[data-q]'))e.target.click()});
+document.addEventListener('change',e=>{if(e.target.dataset.stage){const o=S.opps.find(x=>x.id===e.target.dataset.stage);o.stage=e.target.value;delete o.prob;save();render();toast('Moved to '+SN[o.stage])}});
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{view=b.dataset.v;document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+ ['today','accounts','pipeline','quotes'].forEach(v=>$('v-'+v).hidden=v!==view);render()});
+let armed=false;$('reset').onclick=()=>{if(!armed){armed=true;$('reset').textContent='Tap again to reset';setTimeout(()=>{armed=false;$('reset').textContent='Reset demo data'},3500);return}
+ armed=false;$('reset').textContent='Reset demo data';S=seed();save();selAcc='C004';selQ='DQ-0131';render();toast('Demo data reset')};
+render();
+})();
+</script>
+</body>
+</html>
